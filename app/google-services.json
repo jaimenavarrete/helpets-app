@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "208252640247",
+    "project_id": "helpets-ccc8d",
+    "storage_bucket": "helpets-ccc8d.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:208252640247:android:d6c7d38068e6aeef696cf2",
+        "android_client_info": {
+          "package_name": "com.udb.dsm.helpets"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "208252640247-1pmphjbe79u0q8s5gl6rpb74phot11eu.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.udb.dsm.helpets",
+            "certificate_hash": "b6edeeb74d34e8efdd984a992735edd49fd92052"
+          }
+        },
+        {
+          "client_id": "208252640247-f1ukoamln8stgs887lfg0m0896npsot0.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC3s7Wrtmfth6CG81IxAdcBCFiDvqKzaHA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "208252640247-f1ukoamln8stgs887lfg0m0896npsot0.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
