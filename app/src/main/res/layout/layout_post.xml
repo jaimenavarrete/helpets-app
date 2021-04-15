@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+
+    android:animateLayoutChanges="true"
+    app:cardCornerRadius="10dp"
+    app:cardElevation="5dp"
+    app:cardUseCompatPadding="true" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            android:padding="5dp"
+            android:layout_marginBottom="10dp"
+            >
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imageUserProfile"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:src="@drawable/user_image"
+
+                android:layout_marginRight="10dp"
+                />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_gravity="center_vertical"
+                >
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Daniel Calderón"
+                    android:textColor="#212121"
+                    android:textStyle="bold"
+                    android:textSize="20dp"
+                    />
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="18/02/2021"
+                    android:textColor="#7D7D7D"
+                    android:textSize="14dp"
+                    />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="Apopa, San Salvador"
+                    android:textColor="#7D7D7D"
+                    android:textSize="14dp"
+                    />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Título del Post"
+            android:textColor="#212121"
+            android:textStyle="bold"
+            android:textSize="25dp"
+
+            android:paddingHorizontal="10dp"
+            android:layout_marginBottom="10dp"
+            />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor"
+            android:textColor="#212121"
+            android:textSize="16dp"
+
+            android:paddingHorizontal="10dp"
+            android:layout_marginBottom="20dp"
+            />
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="175dp"
+            android:scaleType="centerCrop"
+
+            android:src="@drawable/post_image" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            >
+
+            <Button
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+
+                android:text="325 Me gusta"
+                android:textColor="@color/primary_color"
+                android:textSize="16"
+                app:backgroundTint="#FFFFFF"
+                app:icon="@drawable/like_icon"
+                app:iconTint="@color/primary_color" />
+
+            <Button
+                style="?android:attr/borderlessButtonStyle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="0.5"
+
+                android:text="35 Comentarios"
+                android:textColor="#212121"
+                android:textSize="16"
+                app:backgroundTint="#FFFFFF"
+                app:icon="@drawable/comment_icon"
+                app:iconTint="#212121" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</androidx.cardview.widget.CardView>
