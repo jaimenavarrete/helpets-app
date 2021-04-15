@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+
+    android:background="#F2F2F2"
+    tools:context=".UserActivity">
+
+    <ImageView
+        android:id="@+id/userBackgroundImage"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:scaleType="centerCrop"
+        app:srcCompat="@drawable/background_user_image"
+        />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/userProfileImage"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:src="@drawable/user_image"
+
+        app:civ_border_color="#FFFFFFFF"
+        app:civ_border_width="5dp"
+
+        android:layout_marginTop="-75dp"
+        android:layout_marginBottom="20dp"
+        android:layout_gravity="center_horizontal"
+        />
+
+    <TextView
+        android:id="@+id/userName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Daniel Calderon"
+
+        android:textSize="30dp"
+        android:layout_gravity="center_horizontal"
+        android:textAlignment="center"
+        android:textColor="#212121"
+        android:textStyle="bold"
+
+        android:layout_marginBottom="10dp"
+        />
+
+    <TextView
+        android:id="@+id/userAddress"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Apopa, San Salvador"
+
+        android:textSize="16dp"
+        android:layout_gravity="center_horizontal"
+        android:textAlignment="center"
+        android:textColor="#7D7D7D"
+
+        android:layout_marginBottom="10dp"
+        />
+
+    <TextView
+        android:id="@+id/userMail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="daniel.calderon@gmail.com"
+
+        android:textSize="16dp"
+        android:layout_gravity="center_horizontal"
+        android:textAlignment="center"
+        android:textColor="#7D7D7D"
+
+        android:layout_marginBottom="10dp"
+        />
+
+    <TextView
+        android:id="@+id/userPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="1234-56789"
+
+        android:textSize="16dp"
+        android:layout_gravity="center_horizontal"
+        android:textAlignment="center"
+        android:textColor="#7D7D7D"
+
+        android:layout_marginBottom="20dp"
+        />
+
+    <Button
+        android:id="@+id/btnEditUser"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginHorizontal="10dp"
+
+        android:backgroundTint="#FFF"
+        android:shadowColor="#FFFFFF"
+
+        android:text="Editar perfil"
+        android:textColor="@color/primary_color"
+        android:textStyle="bold"
+        app:icon="@android:drawable/ic_menu_edit"
+        app:iconGravity="textEnd"
+        app:iconTint="@color/primary_color"
+        app:strokeColor="#DFDFDF"
+        app:strokeWidth="2dp"
+
+        android:layout_marginBottom="20dp"
+        />
+
+    <TextView
+        android:id="@+id/userPost"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Mis publicaciones"
+
+        android:textSize="20dp"
+        android:textColor="#212121"
+        android:textStyle="bold"
+
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginBottom="10dp"
+        />
+
+
+</LinearLayout>
