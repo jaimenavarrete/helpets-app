@@ -9,6 +9,19 @@
     android:background="#F2F2F2"
     tools:context=".UserActivity">
 
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/mainToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary_color_700"
+        android:textColor="@color/white"
+        android:theme="@style/toolbarTheme"
+
+        app:title="@string/app_name"
+        app:titleTextColor="@color/white"
+        app:logo="@drawable/return_icon"
+        />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -16,7 +29,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical"
             >
 
@@ -68,7 +81,9 @@
                     android:id="@+id/iconUserAddress"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    app:srcCompat="@drawable/edit_icon" />
+                    app:srcCompat="@drawable/location_icon"
+
+                    android:layout_marginEnd="5dp" />
 
                 <TextView
                     android:id="@+id/textUserAddress"
@@ -95,7 +110,9 @@
                     android:id="@+id/iconUserMail"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    app:srcCompat="@drawable/email_icon" />
+                    app:srcCompat="@drawable/email_icon"
+
+                    android:layout_marginEnd="5dp" />
                 <TextView
                     android:id="@+id/textUserMail"
                     android:layout_width="wrap_content"
@@ -120,7 +137,9 @@
                     android:id="@+id/iconUserPhone"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
-                    app:srcCompat="@drawable/phone_icon" />
+                    app:srcCompat="@drawable/phone_icon"
+
+                    android:layout_marginEnd="5dp" />
                 <TextView
                     android:id="@+id/textUserPhone"
                     android:layout_width="match_parent"

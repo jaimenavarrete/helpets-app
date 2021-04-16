@@ -9,6 +9,8 @@
     <color name="white">#FFFFFFFF</color>
 
     <color name="primary_color">#FFF07573</color>
+    <color name="primary_color_700">#FFE72523</color>
+    <color name="primary_color_900">#FFCE1816</color>
 
     <style name="progressBarWhite" parent="@style/Theme.AppCompat">
         <item name="colorAccent">@color/white</item>
