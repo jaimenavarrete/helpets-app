@@ -6,101 +6,106 @@
     android:layout_height="wrap_content"
 
     android:animateLayoutChanges="true"
+    app:cardElevation="4dp"
     app:cardCornerRadius="10dp"
-    app:cardElevation="5dp"
     app:cardUseCompatPadding="true" >
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:layout_height="433dp"
+        android:elevation="4dp"
+
+        android:animateLayoutChanges="true"
+        android:orientation="vertical"
+        >
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-
-            android:padding="5dp"
             android:layout_marginBottom="10dp"
-            >
+
+            android:orientation="horizontal"
+            android:padding="10dp">
+
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imageUserProfile"
+                android:id="@+id/cardImageUserProfile"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
-                android:src="@drawable/user_image"
-
                 android:layout_marginRight="10dp"
-                />
+
+                android:src="@drawable/user_image" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:layout_gravity="center_vertical"
-                >
+                android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/cardUserName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Daniel Calderón"
                     android:textColor="#212121"
-                    android:textStyle="bold"
                     android:textSize="20dp"
-                    />
+                    android:textStyle="bold" />
 
                 <TextView
+                    android:id="@+id/cardPostDate"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="18/02/2021"
                     android:textColor="#7D7D7D"
-                    android:textSize="14dp"
-                    />
+                    android:textSize="14dp" />
+
                 <TextView
+                    android:id="@+id/cardUserAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Apopa, San Salvador"
                     android:textColor="#7D7D7D"
-                    android:textSize="14dp"
-                    />
+                    android:textSize="14dp" />
 
             </LinearLayout>
         </LinearLayout>
 
         <TextView
+            android:id="@+id/cardPostTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:paddingHorizontal="10dp"
             android:text="Título del Post"
             android:textColor="#212121"
-            android:textStyle="bold"
-            android:textSize="25dp"
 
-            android:paddingHorizontal="10dp"
-            android:layout_marginBottom="10dp"
-            />
+            android:textSize="25dp"
+            android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/cardPostDescription"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor"
-            android:textColor="#212121"
-            android:textSize="16dp"
-
-            android:paddingHorizontal="10dp"
             android:layout_marginBottom="20dp"
-            />
+            android:paddingHorizontal="10dp"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor"
+
+            android:textColor="#212121"
+            android:textSize="16dp" />
 
         <ImageView
+            android:id="@+id/cardPostImage"
             android:layout_width="match_parent"
             android:layout_height="175dp"
             android:scaleType="centerCrop"
 
-            android:src="@drawable/post_image" />
+            android:src="@drawable/post_image"
+
+            />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            >
+            android:orientation="horizontal">
 
             <Button
                 style="?android:attr/borderlessButtonStyle"
@@ -109,8 +114,9 @@
                 android:layout_weight="0.5"
 
                 android:text="325 Me gusta"
+                android:textAllCaps="false"
                 android:textColor="@color/primary_color"
-                android:textSize="16"
+                android:textSize="16dp"
                 app:backgroundTint="#FFFFFF"
                 app:icon="@drawable/like_icon"
                 app:iconTint="@color/primary_color" />
@@ -122,8 +128,9 @@
                 android:layout_weight="0.5"
 
                 android:text="35 Comentarios"
+                android:textAllCaps="false"
                 android:textColor="#212121"
-                android:textSize="16"
+                android:textSize="16dp"
                 app:backgroundTint="#FFFFFF"
                 app:icon="@drawable/comment_icon"
                 app:iconTint="#212121" />

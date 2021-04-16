@@ -9,162 +9,177 @@
     android:background="#F2F2F2"
     tools:context=".UserActivity">
 
-    <ImageView
-        android:id="@+id/userBackgroundImage"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:scaleType="centerCrop"
-        app:srcCompat="@drawable/background_user_image"
-        />
-
-    <de.hdodenhof.circleimageview.CircleImageView
-        android:id="@+id/imageUserProfile"
-        android:layout_width="150dp"
-        android:layout_height="150dp"
-        android:src="@drawable/user_image"
-
-        app:civ_border_color="#FFFFFFFF"
-        app:civ_border_width="5dp"
-
-        android:layout_marginTop="-75dp"
-        android:layout_marginBottom="20dp"
-        android:layout_gravity="center_horizontal"
-        />
-
-    <TextView
-        android:id="@+id/textUserName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Daniel Calderon"
-
-        android:textSize="30dp"
-        android:layout_gravity="center_horizontal"
-        android:textAlignment="center"
-        android:textColor="#212121"
-        android:textStyle="bold"
-
-        android:layout_marginBottom="10dp"
-        />
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center_horizontal"
+        android:layout_height="match_parent"
         >
 
-        <ImageView
-            android:id="@+id/iconUserAddress"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            app:srcCompat="@drawable/edit_icon" />
-
-        <TextView
-            android:id="@+id/textUserAddress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Apopa, San Salvador"
-
-            android:textSize="16dp"
-            android:textColor="#7D7D7D"
-
-            android:layout_marginBottom="10dp"
-            />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center_horizontal"
-        >
-
-        <ImageView
-            android:id="@+id/iconUserMail"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            app:srcCompat="@drawable/email_icon" />
-        <TextView
-            android:id="@+id/textUserMail"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="daniel.calderon@gmail.com"
-
-            android:textSize="16dp"
-            android:textColor="#7D7D7D"
-
-            android:layout_marginBottom="10dp"
-            />
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_gravity="center_horizontal"
-        >
-
-        <ImageView
-            android:id="@+id/iconUserPhone"
-            android:layout_width="25dp"
-            android:layout_height="25dp"
-            app:srcCompat="@drawable/phone_icon" />
-        <TextView
-            android:id="@+id/textUserPhone"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="1234-56789"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            >
 
-            android:textSize="16dp"
-            android:layout_gravity="center_horizontal"
-            android:textAlignment="center"
-            android:textColor="#7D7D7D"
+            <ImageView
+                android:id="@+id/userBackgroundImage"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:scaleType="centerCrop"
+                app:srcCompat="@drawable/post_image"
+                />
 
-            android:layout_marginBottom="20dp"
-            />
-    </LinearLayout>
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imageUserProfile"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
+                android:src="@drawable/user_image"
 
-    <Button
-        android:id="@+id/buttonEditUser"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="10dp"
+                app:civ_border_color="#FFFFFFFF"
+                app:civ_border_width="5dp"
 
-        android:layout_marginBottom="20dp"
-        android:backgroundTint="#FFF"
+                android:layout_marginTop="-75dp"
+                android:layout_marginBottom="20dp"
+                android:layout_gravity="center_horizontal"
+                />
 
-        android:shadowColor="#FFFFFF"
-        android:text="Editar perfil"
-        android:textColor="@color/primary_color"
-        android:textStyle="bold"
-        app:elevation="0dp"
-        app:icon="@drawable/edit_icon"
-        app:iconGravity="textEnd"
+            <TextView
+                android:id="@+id/textUserName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Daniel Calderon"
 
-        app:iconSize="25dp"
-        app:iconTint="@color/primary_color"
-        app:strokeColor="#DFDFDF"
-        app:strokeWidth="2dp" />
+                android:textSize="30dp"
+                android:layout_gravity="center_horizontal"
+                android:textAlignment="center"
+                android:textColor="#212121"
+                android:textStyle="bold"
 
-    <TextView
-        android:id="@+id/textUserPost"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Mis publicaciones"
+                android:layout_marginBottom="10dp"
+                />
 
-        android:textSize="20dp"
-        android:textColor="#212121"
-        android:textStyle="bold"
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                >
 
-        android:layout_marginHorizontal="10dp"
-        android:layout_marginBottom="10dp"
-        />
+                <ImageView
+                    android:id="@+id/iconUserAddress"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    app:srcCompat="@drawable/edit_icon" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/listRecyclerViewPosts"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+                <TextView
+                    android:id="@+id/textUserAddress"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Apopa, San Salvador"
+
+                    android:textSize="16dp"
+                    android:textColor="#7D7D7D"
+
+                    android:layout_marginBottom="10dp"
+                    />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                >
+
+                <ImageView
+                    android:id="@+id/iconUserMail"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    app:srcCompat="@drawable/email_icon" />
+                <TextView
+                    android:id="@+id/textUserMail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="daniel.calderon@gmail.com"
+
+                    android:textSize="16dp"
+                    android:textColor="#7D7D7D"
+
+                    android:layout_marginBottom="10dp"
+                    />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_horizontal"
+                >
+
+                <ImageView
+                    android:id="@+id/iconUserPhone"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    app:srcCompat="@drawable/phone_icon" />
+                <TextView
+                    android:id="@+id/textUserPhone"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="1234-56789"
+
+                    android:textSize="16dp"
+                    android:layout_gravity="center_horizontal"
+                    android:textAlignment="center"
+                    android:textColor="#7D7D7D"
+
+                    android:layout_marginBottom="20dp"
+                    />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/buttonEditUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+
+                android:layout_marginBottom="20dp"
+                android:backgroundTint="#FFF"
+
+                android:shadowColor="#FFFFFF"
+                android:text="Editar perfil"
+                android:textColor="@color/primary_color"
+                android:textStyle="bold"
+                app:elevation="0dp"
+                app:icon="@drawable/edit_icon"
+                app:iconGravity="textEnd"
+
+                app:iconSize="25dp"
+                app:iconTint="@color/primary_color"
+                app:strokeColor="#DFDFDF"
+                app:strokeWidth="2dp" />
+
+            <TextView
+                android:id="@+id/textUserPost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Mis publicaciones"
+
+                android:textSize="20dp"
+                android:textColor="#212121"
+                android:textStyle="bold"
+
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginBottom="10dp"
+                />
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewPosts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </ScrollView>
 
 
 </LinearLayout>
