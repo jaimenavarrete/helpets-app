@@ -163,11 +163,9 @@
                 android:layout_marginBottom="20dp"
                 android:backgroundTint="#FFF"
 
-                android:shadowColor="#FFFFFF"
                 android:text="Editar perfil"
                 android:textColor="@color/primary_color"
                 android:textStyle="bold"
-                app:elevation="0dp"
                 app:icon="@drawable/edit_icon"
                 app:iconGravity="textEnd"
 

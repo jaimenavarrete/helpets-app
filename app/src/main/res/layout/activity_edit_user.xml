@@ -40,6 +40,23 @@
                 app:srcCompat="@drawable/post_image"
                 />
 
+            <Button
+                android:id="@+id/buttonUserBackgroundImage"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/circular_button"
+                app:backgroundTint="#FFFFFF"
+                app:icon="@drawable/camera_icon"
+                app:iconTint="@color/secondary_color"
+                android:paddingStart="13dp"
+
+                android:layout_gravity="end"
+                android:layout_marginTop="-60dp"
+                android:layout_marginEnd="10dp"
+                >
+
+            </Button>
+
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imageUserProfile"
                 android:layout_width="150dp"
@@ -53,6 +70,191 @@
                 android:layout_marginBottom="20dp"
                 android:layout_gravity="center_horizontal"
                 />
+
+            <Button
+                android:id="@+id/buttonImageUserProfile"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:background="@drawable/circular_button"
+                app:backgroundTint="#FFFFFF"
+                app:icon="@drawable/camera_icon"
+                app:iconTint="@color/secondary_color"
+                android:paddingStart="13dp"
+
+                android:layout_marginTop="-60dp"
+                android:layout_marginStart="50dp"
+                android:layout_marginBottom="30dp"
+                android:layout_gravity="center_horizontal"
+                >
+
+            </Button>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Nombres:"
+                app:boxBackgroundColor="#FFFFFF"
+                app:startIconDrawable="@drawable/user_icon"
+                app:startIconTint="@color/primary_color"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="20dp"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Apellidos:"
+                app:boxBackgroundColor="#FFFFFF"
+                app:startIconDrawable="@drawable/user_icon"
+                app:startIconTint="@color/primary_color"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="20dp"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Usuario:"
+                app:boxBackgroundColor="#FFFFFF"
+                app:startIconDrawable="@drawable/user_icon"
+                app:startIconTint="@color/primary_color"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="20dp"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Email:"
+                app:boxBackgroundColor="#FFFFFF"
+                app:startIconDrawable="@drawable/email_icon"
+                app:startIconTint="@color/primary_color"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="20dp"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textEmailAddress"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Teléfono:"
+                app:boxBackgroundColor="#FFFFFF"
+                app:startIconDrawable="@drawable/phone_icon"
+                app:startIconTint="@color/primary_color"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="20dp"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="phone"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Contraseña:"
+                app:boxBackgroundColor="#FFFFFF"
+                app:startIconDrawable="@drawable/password_icon"
+                app:startIconTint="@color/primary_color"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="20dp"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Repetir contraseña:"
+                app:boxBackgroundColor="#FFFFFF"
+                app:startIconDrawable="@drawable/password_icon"
+                app:startIconTint="@color/primary_color"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="20dp"
+                >
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/buttonEditUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+
+                android:layout_marginBottom="20dp"
+                android:backgroundTint="#FFF"
+
+                android:text="Realizar cambios"
+                android:textColor="@color/primary_color"
+                android:textStyle="bold"
+                app:icon="@drawable/edit_icon"
+                app:iconGravity="textEnd"
+
+                app:iconSize="25dp"
+                app:iconTint="@color/primary_color"
+                app:strokeColor="#DFDFDF"
+                app:strokeWidth="2dp" />
 
         </LinearLayout>
 

@@ -12,6 +12,8 @@
     <color name="primary_color_700">#FFE72523</color>
     <color name="primary_color_900">#FFCE1816</color>
 
+    <color name="secondary_color">#FF32B9CD</color>
+
     <style name="progressBarWhite" parent="@style/Theme.AppCompat">
         <item name="colorAccent">@color/white</item>
     </style>
