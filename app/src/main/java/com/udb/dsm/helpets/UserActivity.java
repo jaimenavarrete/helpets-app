@@ -5,9 +5,11 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,14 +33,16 @@ public class UserActivity extends AppCompatActivity {
     TextView textUserName, textUserEmail, textUserAddress, textUserPhone;
     User user;
 
+    Button buttonEditUser;
+
     List<ListElementPost> posts = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
-        
-        Toolbar toolbar = findViewById(R.id.mainToolbar);
+
+        Toolbar toolbar = findViewById(R.id.userToolbar);
         setSupportActionBar(toolbar);
 
         initializeElements();
@@ -47,7 +51,7 @@ public class UserActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_main, menu);
+        getMenuInflater().inflate(R.menu.menu_user, menu);
         return true;
     }
 
@@ -76,6 +80,12 @@ public class UserActivity extends AppCompatActivity {
         textUserAddress = findViewById(R.id.textUserAddress);
         textUserPhone = findViewById(R.id.textUserPhone);
         textUserEmail = findViewById(R.id.textUserEmail);
+
+        buttonEditUser = findViewById(R.id.buttonEditUser);
+        buttonEditUser.setOnClickListener(v -> {
+            Intent intent = new Intent(UserActivity.this, EditUserActivity.class);
+            startActivity(intent);
+        });
     }
 
     protected void initializeDatabase() {
