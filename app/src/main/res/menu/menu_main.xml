@@ -4,11 +4,23 @@
     tools:context="com.udb.dsm.helpets.MainActivity">
 
     <item
+        android:id="@+id/action_return"
+        android:icon="@drawable/return_icon"
+        android:orderInCategory="1"
+        android:title="@string/action_return"
+        app:showAsAction="always" />
+
+    <item
         android:id="@+id/action_notifications"
         android:icon="@drawable/notifications_icon"
         android:orderInCategory="1"
         android:title="@string/action_notifications"
         app:showAsAction="ifRoom" />
+
+    <item
+        android:id="@+id/action_edit_user"
+        android:title="@string/action_edit_user"
+        app:showAsAction="never" />
 
     <item
         android:id="@+id/action_logout"

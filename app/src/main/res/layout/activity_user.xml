@@ -19,7 +19,6 @@
 
         app:title="@string/app_name"
         app:titleTextColor="@color/white"
-        app:logo="@drawable/return_icon"
         />
 
     <ScrollView
@@ -107,14 +106,14 @@
                 >
 
                 <ImageView
-                    android:id="@+id/iconUserMail"
+                    android:id="@+id/iconUserEmail"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
                     app:srcCompat="@drawable/email_icon"
 
                     android:layout_marginEnd="5dp" />
                 <TextView
-                    android:id="@+id/textUserMail"
+                    android:id="@+id/textUserEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="daniel.calderon@gmail.com"

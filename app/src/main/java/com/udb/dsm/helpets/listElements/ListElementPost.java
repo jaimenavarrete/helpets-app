@@ -1,6 +1,7 @@
 package com.udb.dsm.helpets.listElements;
 
 public class ListElementPost {
+    public String postId;
     public String userId;
     public String userName;
     public String postDate;
@@ -17,6 +18,14 @@ public class ListElementPost {
         this.userAddress = userAddress;
         this.postTitle = postTitle;
         this.postDescription = postDescription;
+    }
+
+    public String getPostId() {
+        return userId;
+    }
+
+    public void setPostId(String userId) {
+        this.userId = userId;
     }
 
     public String getUserId() {

@@ -7,6 +7,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
+import android.widget.TextView;
+import android.widget.Toast;
+
 import androidx.appcompat.widget.Toolbar;
 
 import com.google.firebase.database.DataSnapshot;
@@ -16,12 +20,16 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.udb.dsm.helpets.listElements.ListAdapterPost;
 import com.udb.dsm.helpets.listElements.ListElementPost;
+import com.udb.dsm.helpets.listElements.User;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class UserActivity extends AppCompatActivity {
     DatabaseReference pDatabase;
+
+    TextView textUserName, textUserEmail, textUserAddress, textUserPhone;
+    User user;
 
     List<ListElementPost> posts = new ArrayList<>();
 
@@ -43,13 +51,59 @@ public class UserActivity extends AppCompatActivity {
         return true;
     }
 
-    protected void initializeElements() {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
 
+        if(id == R.id.action_return) {
+            Toast.makeText(UserActivity.this, "Has hecho click en el botón de retorno", Toast.LENGTH_LONG).show();
+        }
+        else if(id == R.id.action_notifications) {
+            Toast.makeText(UserActivity.this, "Has hecho click en el botón de notificaciones", Toast.LENGTH_LONG).show();
+        }
+        else if(id == R.id.action_edit_user) {
+            Toast.makeText(UserActivity.this, "Has hecho click en el botón de editar usuario", Toast.LENGTH_LONG).show();
+        }
+        else if(id == R.id.action_logout) {
+            Toast.makeText(UserActivity.this, "Has hecho click en el botón de cerrar sesión", Toast.LENGTH_LONG).show();
+        }
+
+        return true;
+    }
+
+    protected void initializeElements() {
+        textUserName = findViewById(R.id.textUserName);
+        textUserAddress = findViewById(R.id.textUserAddress);
+        textUserPhone = findViewById(R.id.textUserPhone);
+        textUserEmail = findViewById(R.id.textUserEmail);
     }
 
     protected void initializeDatabase() {
         pDatabase = FirebaseDatabase.getInstance().getReference();
+
+        pDatabase.addValueEventListener(userEvent());
         pDatabase.addValueEventListener(postListEvent());
+    }
+
+    protected ValueEventListener userEvent() {
+        return new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // Get user info
+                user = snapshot.child("users").child("SxknLnmvVCMIxQfuHVOF2iiBOi63").getValue(User.class);
+
+                // Set user info into the textViews
+                textUserName.setText(user.getUserName());
+                textUserEmail.setText(user.getUserEmail());
+                textUserAddress.setText(user.getUserAddress());
+                textUserPhone.setText(user.getUserPhone());
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        };
     }
 
     protected ValueEventListener postListEvent() {
@@ -58,16 +112,17 @@ public class UserActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 posts.clear();
 
-//                for (DataSnapshot productSnapshot : snapshot.child("posts").getChildren()) {
-//                    ListElementPost post = productSnapshot.getValue(ListElementPost.class);
-////                    post.setId(productSnapshot.getKey());
-//
-//                    posts.add(post);
-//                }
+                for (DataSnapshot productSnapshot : snapshot.child("posts").getChildren()) {
+                    ListElementPost post = productSnapshot.getValue(ListElementPost.class);
+                    post.setPostId(productSnapshot.getKey());
 
-                posts.add(new ListElementPost("wefwefew", "Daniel Calderón", "15/04/2021", "Apopa, San Salvador", "Titulo", "Descripcion"));
-                posts.add(new ListElementPost("wefwefew", "Daniel Calderón", "15/04/2021", "Apopa, San Salvador", "Titulo", "Descripcion"));
-                posts.add(new ListElementPost("wefwefew", "Daniel Calderón", "15/04/2021", "Apopa, San Salvador", "Titulo", "Descripcion"));
+                    // Set the user info into the post object
+                    post.setUserName(user.getUserName());
+                    post.setUserAddress(user.getUserAddress());
+                    post.setUserId(user.getUserId());
+
+                    posts.add(post);
+                }
 
                 ListAdapterPost listAdapter = new ListAdapterPost(posts, UserActivity.this);
 
