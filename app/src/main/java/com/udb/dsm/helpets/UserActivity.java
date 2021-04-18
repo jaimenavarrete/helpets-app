@@ -87,6 +87,8 @@ public class UserActivity extends AppCompatActivity {
         }
         else if(id == R.id.action_logout) {
             Toast.makeText(UserActivity.this, "Has hecho click en el botón de cerrar sesión", Toast.LENGTH_LONG).show();
+            Intent i = new Intent(UserActivity.this, LoginActivity.class);
+            startActivity(i);
         }
 
         return true;
