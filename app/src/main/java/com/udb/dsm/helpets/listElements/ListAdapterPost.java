@@ -4,11 +4,15 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+import com.udb.dsm.helpets.EditUserActivity;
 import com.udb.dsm.helpets.R;
+import com.udb.dsm.helpets.UserActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,6 +49,7 @@ public class ListAdapterPost extends RecyclerView.Adapter<ListAdapterPost.ViewHo
 
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView userName, postDate, userAddress, postTitle, postDescription;
+        ImageView imageUserProfile;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -54,6 +59,8 @@ public class ListAdapterPost extends RecyclerView.Adapter<ListAdapterPost.ViewHo
             userAddress = itemView.findViewById(R.id.cardUserAddress);
             postTitle = itemView.findViewById(R.id.cardPostTitle);
             postDescription = itemView.findViewById(R.id.cardPostDescription);
+
+            imageUserProfile = itemView.findViewById(R.id.cardImageUserProfile);
         }
 
         void bindData(final ListElementPost item) {
@@ -62,6 +69,11 @@ public class ListAdapterPost extends RecyclerView.Adapter<ListAdapterPost.ViewHo
             userAddress.setText(item.getUserAddress());
             postTitle.setText(item.getPostTitle());
             postDescription.setText(item.getPostDescription());
+
+            try {
+                Picasso.with(context).load(item.getUserImageProfile()).into(imageUserProfile);
+            } catch (Exception ignored) {
+            }
         }
     }
 }

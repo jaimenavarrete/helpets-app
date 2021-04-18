@@ -4,6 +4,7 @@ public class ListElementPost {
     public String postId;
     public String userId;
     public String userName;
+    public String userImageProfile;
     public String postDate;
     public String userAddress;
     public String postTitle;
@@ -11,9 +12,10 @@ public class ListElementPost {
 
     public ListElementPost() {}
 
-    public ListElementPost(String userId, String userName, String postDate, String userAddress, String postTitle, String postDescription) {
+    public ListElementPost(String userId, String userName, String userImageProfile, String postDate, String userAddress, String postTitle, String postDescription) {
         this.userId = userId;
         this.userName = userName;
+        this.userImageProfile = userImageProfile;
         this.postDate = postDate;
         this.userAddress = userAddress;
         this.postTitle = postTitle;
@@ -42,6 +44,14 @@ public class ListElementPost {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getUserImageProfile() {
+        return userImageProfile;
+    }
+
+    public void setUserImageProfile(String userImageProfile) {
+        this.userImageProfile = userImageProfile;
     }
 
     public String getPostDate() {

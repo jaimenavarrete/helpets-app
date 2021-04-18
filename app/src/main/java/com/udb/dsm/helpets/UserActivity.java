@@ -6,20 +6,27 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+import com.squareup.picasso.Picasso;
 import com.udb.dsm.helpets.listElements.ListAdapterPost;
 import com.udb.dsm.helpets.listElements.ListElementPost;
 import com.udb.dsm.helpets.listElements.User;
@@ -27,8 +34,15 @@ import com.udb.dsm.helpets.listElements.User;
 import java.util.ArrayList;
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class UserActivity extends AppCompatActivity {
     DatabaseReference pDatabase;
+    FirebaseStorage storage;
+    StorageReference storageRef;
+
+    ImageView imageUserBackground;
+    CircleImageView imageUserProfile;
 
     TextView textUserName, textUserEmail, textUserAddress, textUserPhone;
     User user;
@@ -43,9 +57,11 @@ public class UserActivity extends AppCompatActivity {
         setContentView(R.layout.activity_user);
 
         Toolbar toolbar = findViewById(R.id.userToolbar);
+        toolbar.setTitle("Perfil");
         setSupportActionBar(toolbar);
 
         initializeElements();
+        initializeStorage();
         initializeDatabase();
     }
 
@@ -66,7 +82,8 @@ public class UserActivity extends AppCompatActivity {
             Toast.makeText(UserActivity.this, "Has hecho click en el botón de notificaciones", Toast.LENGTH_LONG).show();
         }
         else if(id == R.id.action_edit_user) {
-            Toast.makeText(UserActivity.this, "Has hecho click en el botón de editar usuario", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(UserActivity.this, EditUserActivity.class);
+            startActivity(intent);
         }
         else if(id == R.id.action_logout) {
             Toast.makeText(UserActivity.this, "Has hecho click en el botón de cerrar sesión", Toast.LENGTH_LONG).show();
@@ -76,6 +93,9 @@ public class UserActivity extends AppCompatActivity {
     }
 
     protected void initializeElements() {
+        imageUserProfile = findViewById(R.id.imageUserProfile);
+        imageUserBackground = findViewById(R.id.imageUserBackground);
+
         textUserName = findViewById(R.id.textUserName);
         textUserAddress = findViewById(R.id.textUserAddress);
         textUserPhone = findViewById(R.id.textUserPhone);
@@ -86,6 +106,11 @@ public class UserActivity extends AppCompatActivity {
             Intent intent = new Intent(UserActivity.this, EditUserActivity.class);
             startActivity(intent);
         });
+    }
+
+    protected void initializeStorage() {
+        storage = FirebaseStorage.getInstance();
+        storageRef = storage.getReference();
     }
 
     protected void initializeDatabase() {
@@ -107,6 +132,9 @@ public class UserActivity extends AppCompatActivity {
                 textUserEmail.setText(user.getUserEmail());
                 textUserAddress.setText(user.getUserAddress());
                 textUserPhone.setText(user.getUserPhone());
+
+                Picasso.with(UserActivity.this).load(user.getUserImageBackground()).into(imageUserBackground);
+                Picasso.with(UserActivity.this).load(user.getUserImageProfile()).into(imageUserProfile);
             }
 
             @Override
@@ -130,6 +158,7 @@ public class UserActivity extends AppCompatActivity {
                     post.setUserName(user.getUserName());
                     post.setUserAddress(user.getUserAddress());
                     post.setUserId(user.getUserId());
+                    post.setUserImageProfile(user.getUserImageProfile());
 
                     posts.add(post);
                 }

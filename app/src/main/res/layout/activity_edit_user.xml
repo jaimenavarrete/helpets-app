@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-
     android:background="#F2F2F2"
+
+    android:orientation="vertical"
     tools:context=".EditUserActivity">
 
     <androidx.appcompat.widget.Toolbar
@@ -18,42 +18,37 @@
         android:theme="@style/toolbarTheme"
 
         app:title="@string/app_name"
-        app:titleTextColor="@color/white"
-        />
+        app:titleTextColor="@color/white" />
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        >
+        android:layout_height="match_parent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            >
+            android:orientation="vertical">
 
             <ImageView
-                android:id="@+id/userBackgroundImage"
+                android:id="@+id/imageUserBackground"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/post_image"
-                />
+                android:background="#FFFFFF"
+                android:scaleType="centerCrop" />
 
             <Button
                 android:id="@+id/buttonUserBackgroundImage"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
-                android:background="@drawable/circular_button"
-                app:backgroundTint="#FFFFFF"
-                app:icon="@drawable/camera_icon"
-                app:iconTint="@color/secondary_color"
-                android:paddingStart="13dp"
-
                 android:layout_gravity="end"
                 android:layout_marginTop="-60dp"
                 android:layout_marginEnd="10dp"
-                >
+                android:background="@drawable/circular_button"
+                android:paddingStart="13dp"
+
+                app:backgroundTint="#FFFFFF"
+                app:icon="@drawable/camera_icon"
+                app:iconTint="@color/secondary_color">
 
             </Button>
 
@@ -61,178 +56,163 @@
                 android:id="@+id/imageUserProfile"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:src="@drawable/user_image"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/circular_button"
 
                 app:civ_border_color="#FFFFFFFF"
                 app:civ_border_width="5dp"
 
                 android:layout_marginTop="-75dp"
                 android:layout_marginBottom="20dp"
-                android:layout_gravity="center_horizontal"
                 />
 
             <Button
                 android:id="@+id/buttonImageUserProfile"
                 android:layout_width="50dp"
                 android:layout_height="50dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="50dp"
+                android:layout_marginTop="-60dp"
+                android:layout_marginBottom="30dp"
                 android:background="@drawable/circular_button"
+
+                android:paddingStart="13dp"
                 app:backgroundTint="#FFFFFF"
                 app:icon="@drawable/camera_icon"
-                app:iconTint="@color/secondary_color"
-                android:paddingStart="13dp"
-
-                android:layout_marginTop="-60dp"
-                android:layout_marginStart="50dp"
-                android:layout_marginBottom="30dp"
-                android:layout_gravity="center_horizontal"
-                >
+                app:iconTint="@color/secondary_color">
 
             </Button>
 
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="20dp"
                 android:hint="Nombres:"
                 app:boxBackgroundColor="#FFFFFF"
-                app:startIconDrawable="@drawable/user_icon"
-                app:startIconTint="@color/primary_color"
-                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
 
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginBottom="20dp"
-                >
+                app:startIconDrawable="@drawable/user_icon"
+                app:startIconTint="@color/primary_color">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
-                    />
+                    android:inputType="text" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="20dp"
                 android:hint="Apellidos:"
                 app:boxBackgroundColor="#FFFFFF"
-                app:startIconDrawable="@drawable/user_icon"
-                app:startIconTint="@color/primary_color"
-                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
 
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginBottom="20dp"
-                >
+                app:startIconDrawable="@drawable/user_icon"
+                app:startIconTint="@color/primary_color">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
-                    />
+                    android:inputType="text" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="20dp"
                 android:hint="Usuario:"
                 app:boxBackgroundColor="#FFFFFF"
-                app:startIconDrawable="@drawable/user_icon"
-                app:startIconTint="@color/primary_color"
-                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
 
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginBottom="20dp"
-                >
+                app:startIconDrawable="@drawable/user_icon"
+                app:startIconTint="@color/primary_color">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text"
-                    />
+                    android:inputType="text" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="20dp"
                 android:hint="Email:"
                 app:boxBackgroundColor="#FFFFFF"
-                app:startIconDrawable="@drawable/email_icon"
-                app:startIconTint="@color/primary_color"
-                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
 
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginBottom="20dp"
-                >
+                app:startIconDrawable="@drawable/email_icon"
+                app:startIconTint="@color/primary_color">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textEmailAddress"
-                    />
+                    android:inputType="textEmailAddress" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="20dp"
                 android:hint="Teléfono:"
                 app:boxBackgroundColor="#FFFFFF"
-                app:startIconDrawable="@drawable/phone_icon"
-                app:startIconTint="@color/primary_color"
-                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
 
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginBottom="20dp"
-                >
+                app:startIconDrawable="@drawable/phone_icon"
+                app:startIconTint="@color/primary_color">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="phone"
-                    />
+                    android:inputType="phone" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="20dp"
                 android:hint="Contraseña:"
                 app:boxBackgroundColor="#FFFFFF"
-                app:startIconDrawable="@drawable/password_icon"
-                app:startIconTint="@color/primary_color"
-                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
 
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginBottom="20dp"
-                >
+                app:startIconDrawable="@drawable/password_icon"
+                app:startIconTint="@color/primary_color">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    />
+                    android:inputType="textPassword" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="Repetir contraseña:"
-                app:boxBackgroundColor="#FFFFFF"
-                app:startIconDrawable="@drawable/password_icon"
-                app:startIconTint="@color/primary_color"
-                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginBottom="20dp"
-                >
+                android:hint="Repetir contraseña:"
+                app:boxBackgroundColor="#FFFFFF"
+
+                app:startIconDrawable="@drawable/password_icon"
+                app:startIconTint="@color/primary_color">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword"
-                    />
+                    android:inputType="textPassword" />
 
             </com.google.android.material.textfield.TextInputLayout>
 

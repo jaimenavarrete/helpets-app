@@ -33,25 +33,24 @@
             >
 
             <ImageView
-                android:id="@+id/userBackgroundImage"
+                android:id="@+id/imageUserBackground"
                 android:layout_width="match_parent"
                 android:layout_height="200dp"
-                android:scaleType="centerCrop"
-                app:srcCompat="@drawable/post_image"
-                />
+                android:background="#FFFFFF"
+                android:scaleType="centerCrop" />
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/imageUserProfile"
                 android:layout_width="150dp"
                 android:layout_height="150dp"
-                android:src="@drawable/user_image"
+                android:layout_gravity="center_horizontal"
+                android:background="@drawable/circular_button"
 
                 app:civ_border_color="#FFFFFFFF"
                 app:civ_border_width="5dp"
 
                 android:layout_marginTop="-75dp"
                 android:layout_marginBottom="20dp"
-                android:layout_gravity="center_horizontal"
                 />
 
             <TextView
