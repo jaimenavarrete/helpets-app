@@ -37,6 +37,9 @@
         <activity
             android:name=".SignupActivity"
             android:theme="@style/Theme.HelPets.NoActionBar" />
+        <activity
+            android:name=".RecoveryActivity"
+            android:theme="@style/Theme.HelPets.NoActionBar" />
     </application>
 
 </manifest>

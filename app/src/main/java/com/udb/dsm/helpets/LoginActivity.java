@@ -20,7 +20,7 @@ import com.google.firebase.auth.FirebaseAuth;
 public class LoginActivity extends AppCompatActivity {
 
     private EditText etUser, etPassword;
-    private TextView tvSignup;
+    private TextView tvSignup, tvForget;
     private Button btnLogin;
     private FirebaseAuth mAuth;
 
@@ -40,6 +40,13 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View v){
                 Intent i = new Intent(LoginActivity.this, SignupActivity.class);
+                startActivity(i);
+            }
+        });
+        tvForget.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v){
+                Intent i = new Intent(LoginActivity.this, RecoveryActivity.class);
                 startActivity(i);
             }
         });
@@ -80,6 +87,7 @@ public class LoginActivity extends AppCompatActivity {
         etUser= findViewById(R.id.etUser);
         etPassword = findViewById(R.id.etPassword);
         tvSignup = findViewById(R.id.tvSignup);
+        tvForget = findViewById(R.id.tvForget);
         btnLogin = findViewById(R.id.btnLogin);
     }
 }

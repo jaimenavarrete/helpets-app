@@ -6,7 +6,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     android:background="@color/primary_color"
-    tools:context=".LoginActivity">
+    tools:context=".RecoveryActivity">
 
     <ImageView
         android:id="@+id/imageView"
@@ -20,10 +20,11 @@
         android:id="@+id/tvPhrase"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/greet"
+        android:text="¿Olvidaste tu Contraseña? Puedes recordarla ingresando tu correo electronico"
         android:textColor="@color/white"
         android:textStyle="bold"
-        android:textSize="40sp"
+        android:textSize="20sp"
+        android:layout_margin="10dp"
         android:textAlignment="center" />
 
     <Space
@@ -36,11 +37,11 @@
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="20dp"
         android:layout_marginBottom="20dp"
-        android:hint="@string/user"
+        android:hint="Correo Electronico"
         android:textColorHint="@color/white"
         app:boxBackgroundColor="@color/primary_color"
 
-        app:startIconDrawable="@drawable/user_icon"
+        app:startIconDrawable="@drawable/email_icon"
         app:startIconTint="@color/white">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -51,80 +52,37 @@
 
     </com.google.android.material.textfield.TextInputLayout>
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:layout_marginBottom="20dp"
-        android:hint="@string/password"
-        android:textColorHint="@color/white"
-        app:boxBackgroundColor="@color/primary_color"
-
-        app:startIconDrawable="@drawable/password_icon"
-        app:startIconTint="@color/white">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:inputType="textPassword" />
-
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <TextView
-        android:id="@+id/tvForget"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="¿Olvidaste tu Contraseña?"
-        android:textColor="@color/white"
-        android:gravity="right"
-        android:padding="2dp"
-        android:layout_marginRight="20sp"
-        />
-
     <Space
         android:layout_width="match_parent"
         android:layout_height="15dp" />
 
     <Button
-        android:id="@+id/btnLogin"
+        android:id="@+id/btnRemember"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginHorizontal="10dp"
-
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="5dp"
         android:backgroundTint="#FFF"
-
-        android:text="@string/login"
+        android:text="Recordar Contraseña"
         android:textColor="@color/primary_color"
         android:textStyle="bold"
         android:textAlignment="center" />
 
-    <TextView
-        android:id="@+id/textView3"
+    <Button
+        android:id="@+id/btnBack"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="¿No Tienes Una cuenta? "
+        android:layout_marginHorizontal="10dp"
+        android:layout_marginBottom="10dp"
+        android:backgroundTint="@color/primary_color"
+        android:shadowColor="@color/white"
+        android:text="Regresar"
         android:textColor="@color/white"
-        android:gravity="center"
-        android:padding="2dp"
-        />
-
-    <TextView
-        android:id="@+id/tvSignup"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Registrate Aqui"
-        android:textColor="@color/white"
-        android:gravity="center"
-        android:padding="2dp"
         android:textStyle="bold"
-        />
+        android:textAlignment="center" />
 
     <Space
         android:layout_width="match_parent"
-        android:layout_height="113dp" />
-
+        android:layout_height="100dp" />
 
 </LinearLayout>
