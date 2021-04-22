@@ -117,7 +117,6 @@ public class UserActivity extends AppCompatActivity {
 
     protected void initializeDatabase() {
         pDatabase = FirebaseDatabase.getInstance().getReference();
-
         pDatabase.addValueEventListener(userEvent());
         pDatabase.addValueEventListener(postListEvent());
     }

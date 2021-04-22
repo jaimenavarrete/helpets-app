@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginBottom="20dp"
-                android:hint="Nombres:"
+                android:hint="Nombre:"
                 android:textColorHint="@color/white"
                 app:boxBackgroundColor="@color/primary_color"
 
@@ -36,46 +36,7 @@
                 app:startIconTint="@color/white">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginBottom="20dp"
-                android:hint="Apellidos:"
-                android:textColorHint="@color/white"
-                app:boxBackgroundColor="@color/primary_color"
-
-                app:startIconDrawable="@drawable/user_icon"
-                app:startIconTint="@color/white">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="text" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginBottom="20dp"
-                android:hint="Usuario:"
-                android:textColorHint="@color/white"
-                app:boxBackgroundColor="@color/primary_color"
-
-                app:startIconDrawable="@drawable/user_icon"
-                app:startIconTint="@color/white">
-
-                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etName"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="text" />
@@ -96,11 +57,34 @@
                 app:startIconTint="@color/white">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etEmail"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textEmailAddress" />
 
             </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="20dp"
+                android:hint="Dirección:"
+                android:textColorHint="@color/white"
+                app:boxBackgroundColor="@color/primary_color"
+
+                app:startIconDrawable="@drawable/ic_address"
+                app:startIconTint="@color/white">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etAddress"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
@@ -116,6 +100,7 @@
                 app:startIconTint="@color/white">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etNumber"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="phone" />
@@ -136,6 +121,7 @@
                 app:startIconTint="@color/white">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword" />
@@ -156,6 +142,7 @@
                 app:startIconTint="@color/white">
 
                 <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etRepeatPassword"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="textPassword" />
