@@ -15,10 +15,16 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
+import com.google.android.material.textfield.TextInputLayout;
+import com.google.firebase.auth.AuthCredential;
+import com.google.firebase.auth.EmailAuthProvider;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -40,10 +46,14 @@ public class EditUserActivity extends AppCompatActivity {
     FirebaseStorage storage;
     StorageReference storageRef;
 
+    FirebaseUser firebaseUser;
+
     ImageView imageUserBackground;
     CircleImageView imageUserProfile;
 
-    Button buttonUserBackgroundImage, buttonImageUserProfile;
+    TextInputLayout textOldPassword, textNewPassword, textRepeatNewPassword;
+
+    Button buttonUserBackgroundImage, buttonImageUserProfile, buttonEditUserPassword, buttonEditUserData;
 
     Uri uriImage;
     Boolean isUserImageProfile = false;
@@ -54,6 +64,8 @@ public class EditUserActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_user);
+
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         Toolbar toolbar = findViewById(R.id.userToolbar);
         toolbar.setTitle("Editar perfil");
@@ -94,6 +106,10 @@ public class EditUserActivity extends AppCompatActivity {
         imageUserProfile = findViewById(R.id.imageUserProfile);
         imageUserBackground = findViewById(R.id.imageUserBackground);
 
+        textOldPassword = findViewById(R.id.textOldPassword);
+        textNewPassword = findViewById(R.id.textNewPassword);
+        textRepeatNewPassword = findViewById(R.id.textRepeatNewPassword);
+
         buttonUserBackgroundImage = findViewById(R.id.buttonUserBackgroundImage);
         buttonUserBackgroundImage.setOnClickListener(v -> {
             isUserImageProfile = false;
@@ -104,6 +120,11 @@ public class EditUserActivity extends AppCompatActivity {
         buttonImageUserProfile.setOnClickListener(v -> {
             isUserImageProfile = true;
             chooseImage();
+        });
+
+        buttonEditUserPassword = findViewById(R.id.buttonEditUserPassword);
+        buttonEditUserPassword.setOnClickListener(v -> {
+            changeUserPassword();
         });
     }
 
@@ -203,5 +224,45 @@ public class EditUserActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError error) {}
         };
+    }
+
+    protected void changeUserPassword() {
+        String email = firebaseUser.getEmail();
+        String oldPassword = textOldPassword.getEditText().getText().toString();
+        String newPassword = textNewPassword.getEditText().getText().toString();
+        String repeatNewPassword = textRepeatNewPassword.getEditText().getText().toString();
+
+        if(!oldPassword.equals("") && !newPassword.equals("") && !repeatNewPassword.equals("")) {
+            AuthCredential credential = EmailAuthProvider.getCredential(email, oldPassword);
+
+            firebaseUser.reauthenticate(credential).addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    if(task.isSuccessful()){
+                        if(newPassword.equals(repeatNewPassword)) {
+                            firebaseUser.updatePassword(newPassword).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                @Override
+                                public void onComplete(@NonNull Task<Void> task) {
+                                    if(!task.isSuccessful()){
+                                        Toast.makeText(EditUserActivity.this, "Hubo un error al cambiar la contraseña. Inténtelo más tarde", Toast.LENGTH_LONG).show();
+                                    }else {
+                                        pDatabase.child("users").child("SxknLnmvVCMIxQfuHVOF2iiBOi63").child("userPassword").setValue(newPassword);
+                                        Toast.makeText(EditUserActivity.this, "La contraseña ha sido cambiada correctamente", Toast.LENGTH_LONG).show();
+                                    }
+                                }
+                            });
+                        }
+                        else {
+                            Toast.makeText(EditUserActivity.this, "Las contraseñas no coinciden", Toast.LENGTH_LONG).show();
+                        }
+                    }else {
+                        Toast.makeText(EditUserActivity.this, "La contraseña actual que ha colocado, es incorrecta", Toast.LENGTH_LONG).show();
+                    }
+                }
+            });
+        }
+        else {
+            Toast.makeText(EditUserActivity.this, "Debe rellenar todos los campos de contraseña", Toast.LENGTH_LONG).show();
+        }
     }
 }

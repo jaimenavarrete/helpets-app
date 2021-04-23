@@ -35,6 +35,7 @@ public class SignupActivity extends AppCompatActivity {
         setContentView(R.layout.activity_signup);
         initializeElements();
         initializeFirebase();
+
         tvLogin.setOnClickListener(v -> {
             Intent i = new Intent(SignupActivity.this, LoginActivity.class);
             startActivity(i);
@@ -56,14 +57,15 @@ public class SignupActivity extends AppCompatActivity {
                 u.setUserAddress(etAddress.getText().toString());
                 u.setUserImageBackground("");
                 u.setUserImageProfile("");
+
                 databaseReference.child("users").child(u.getUserId()).setValue(u);
-                Toast.makeText(this, "Sign Up Correct!", Toast.LENGTH_LONG).show();
+                Toast.makeText(this, "Se ha registrado correctamente!", Toast.LENGTH_LONG).show();
                 Intent i = new Intent(SignupActivity.this, LoginActivity.class);
                 startActivity(i);
             }
         }
         else
-            Toast.makeText(this, "Fill in the blanks!", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Debe rellenar todos los campos!", Toast.LENGTH_LONG).show();
     }
 
     public void initializeFirebase(){
@@ -93,19 +95,19 @@ public class SignupActivity extends AppCompatActivity {
             etPassword.setError("Debe contener caracteres especiales");
         else b++;
         if (!Password.matches(".*\\d.*"))
-            etPassword.setError("Debe contener al menos un numero");
+            etPassword.setError("Debe contener al menos un número");
         else b++;
         if (!Password.matches(".*[a-z].*"))
-            etPassword.setError("Debe contener minusculas");
+            etPassword.setError("Debe contener minúsculas");
         else b++;
         if (!Password.matches(".*[A-Z].*"))
-            etPassword.setError("Debe contener mayusculas");
+            etPassword.setError("Debe contener mayúsculas");
         else b++;
         if (!Password.matches(".{8,15}"))
-            etPassword.setError("Debe contener 8 a 15 caracteres");
+            etPassword.setError("Debe contener de 8 a 15 caracteres");
         else b++;
         if(!Password.equals(RepeatPassword))
-            etRepeatPassword.setError("Contrasenas No Coinciden");
+            etRepeatPassword.setError("Las contraseñas no Coinciden");
         else b++;
         if (b == 6) return true;
         else return false;

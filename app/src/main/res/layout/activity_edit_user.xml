@@ -83,43 +83,111 @@
 
             </Button>
 
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginBottom="20dp"
+
+                android:text="Cambiar contraseña"
+                android:textColor="#212121"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:id="@+id/textOldPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginBottom="20dp"
-                android:hint="Nombres:"
+                android:hint="Contraseña actual:"
                 app:boxBackgroundColor="#FFFFFF"
 
-                app:startIconDrawable="@drawable/user_icon"
+                app:startIconDrawable="@drawable/password_icon"
                 app:startIconTint="@color/primary_color">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text" />
+                    android:inputType="textPassword" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:id="@+id/textNewPassword"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginBottom="20dp"
-                android:hint="Apellidos:"
+                android:hint="Nueva Contraseña:"
                 app:boxBackgroundColor="#FFFFFF"
 
-                app:startIconDrawable="@drawable/user_icon"
+                app:startIconDrawable="@drawable/password_icon"
                 app:startIconTint="@color/primary_color">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="text" />
+                    android:inputType="textPassword" />
 
             </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:id="@+id/textRepeatNewPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="20dp"
+                android:hint="Repetir nueva contraseña:"
+                app:boxBackgroundColor="#FFFFFF"
+
+                app:startIconDrawable="@drawable/password_icon"
+                app:startIconTint="@color/primary_color">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="textPassword" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/buttonEditUserPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+
+                android:layout_marginBottom="30dp"
+                android:backgroundTint="#FFF"
+
+                android:text="Cambiar contraseña"
+                android:textColor="@color/primary_color"
+                android:textStyle="bold"
+                app:icon="@drawable/edit_icon"
+                app:iconGravity="textEnd"
+
+                app:iconSize="25dp"
+                app:iconTint="@color/primary_color"
+                app:strokeColor="#DFDFDF"
+                app:strokeWidth="2dp" />
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginBottom="20dp"
+
+                android:text="Cambiar datos del usuario"
+                android:textColor="#212121"
+                android:textAlignment="center"
+                android:textSize="20sp"
+                android:textStyle="bold" />
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
@@ -127,7 +195,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginBottom="20dp"
-                android:hint="Usuario:"
+                android:hint="Nombre completo:"
                 app:boxBackgroundColor="#FFFFFF"
 
                 app:startIconDrawable="@drawable/user_icon"
@@ -184,40 +252,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="20dp"
                 android:layout_marginBottom="20dp"
-                android:hint="Contraseña:"
+                android:hint="Dirección:"
                 app:boxBackgroundColor="#FFFFFF"
 
-                app:startIconDrawable="@drawable/password_icon"
+                app:startIconDrawable="@drawable/location_icon"
                 app:startIconTint="@color/primary_color">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:inputType="textPassword" />
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginHorizontal="20dp"
-                android:layout_marginBottom="20dp"
-                android:hint="Repetir contraseña:"
-                app:boxBackgroundColor="#FFFFFF"
-
-                app:startIconDrawable="@drawable/password_icon"
-                app:startIconTint="@color/primary_color">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="textPassword" />
+                    android:inputType="text" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
-                android:id="@+id/buttonEditUser"
+                android:id="@+id/buttonEditUserData"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
@@ -225,7 +274,7 @@
                 android:layout_marginBottom="20dp"
                 android:backgroundTint="#FFF"
 
-                android:text="Realizar cambios"
+                android:text="Cambiar datos"
                 android:textColor="@color/primary_color"
                 android:textStyle="bold"
                 app:icon="@drawable/edit_icon"

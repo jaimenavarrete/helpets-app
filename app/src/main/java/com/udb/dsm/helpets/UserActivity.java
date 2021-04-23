@@ -6,7 +6,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,8 +16,8 @@ import android.widget.Toast;
 
 import androidx.appcompat.widget.Toolbar;
 
-import com.google.android.gms.tasks.OnFailureListener;
-import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -27,8 +26,8 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.squareup.picasso.Picasso;
-import com.udb.dsm.helpets.listElements.ListAdapterPost;
-import com.udb.dsm.helpets.listElements.ListElementPost;
+import com.udb.dsm.helpets.listElements.PostAdapter;
+import com.udb.dsm.helpets.listElements.Post;
 import com.udb.dsm.helpets.listElements.User;
 
 import java.util.ArrayList;
@@ -49,7 +48,8 @@ public class UserActivity extends AppCompatActivity {
 
     Button buttonEditUser;
 
-    List<ListElementPost> posts = new ArrayList<>();
+    List<Post> posts = new ArrayList<>();
+    RecyclerView recyclerViewPosts;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -95,6 +95,10 @@ public class UserActivity extends AppCompatActivity {
     }
 
     protected void initializeElements() {
+        recyclerViewPosts = findViewById(R.id.recyclerViewPosts);
+        recyclerViewPosts.setHasFixedSize(false);
+        recyclerViewPosts.setLayoutManager(new LinearLayoutManager(UserActivity.this));
+
         imageUserProfile = findViewById(R.id.imageUserProfile);
         imageUserBackground = findViewById(R.id.imageUserBackground);
 
@@ -152,7 +156,7 @@ public class UserActivity extends AppCompatActivity {
                 posts.clear();
 
                 for (DataSnapshot productSnapshot : snapshot.child("posts").getChildren()) {
-                    ListElementPost post = productSnapshot.getValue(ListElementPost.class);
+                    Post post = productSnapshot.getValue(Post.class);
                     post.setPostId(productSnapshot.getKey());
 
                     // Set the user info into the post object
@@ -164,11 +168,7 @@ public class UserActivity extends AppCompatActivity {
                     posts.add(post);
                 }
 
-                ListAdapterPost listAdapter = new ListAdapterPost(posts, UserActivity.this);
-
-                RecyclerView recyclerViewPosts = findViewById(R.id.recyclerViewPosts);
-                recyclerViewPosts.setHasFixedSize(false);
-                recyclerViewPosts.setLayoutManager(new LinearLayoutManager(UserActivity.this));
+                PostAdapter listAdapter = new PostAdapter(posts, UserActivity.this);
                 recyclerViewPosts.setAdapter(listAdapter);
             }
 

@@ -10,41 +10,38 @@ import android.widget.TextView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.squareup.picasso.Picasso;
-import com.udb.dsm.helpets.EditUserActivity;
 import com.udb.dsm.helpets.R;
-import com.udb.dsm.helpets.UserActivity;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class ListAdapterPost extends RecyclerView.Adapter<ListAdapterPost.ViewHolder> {
-    private List<ListElementPost> pData;
+public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
+    private List<Post> posts;
     private LayoutInflater pInflater;
     private Context context;
 
-    public ListAdapterPost(List<ListElementPost> itemList, Context context) {
+    public PostAdapter(List<Post> posts, Context context) {
         this.pInflater = LayoutInflater.from(context);
         this.context = context;
-        this.pData = itemList;
+        this.posts = posts;
     }
 
     @Override
-    public int getItemCount() { return pData.size(); }
+    public int getItemCount() { return posts.size(); }
 
     @Override
-    public ListAdapterPost.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public PostAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = pInflater.inflate(R.layout.layout_post, null);
 
-        return new ListAdapterPost.ViewHolder(view);
+        return new PostAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(final ListAdapterPost.ViewHolder holder, final int position) {
-        holder.bindData(pData.get(position));
+    public void onBindViewHolder(final PostAdapter.ViewHolder holder, final int position) {
+        holder.bindData(posts.get(position));
     }
 
-    public void setItems(List<ListElementPost> items) {
-        pData = items;
+    public void setItems(List<Post> items) {
+        posts = items;
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
@@ -63,7 +60,7 @@ public class ListAdapterPost extends RecyclerView.Adapter<ListAdapterPost.ViewHo
             imageUserProfile = itemView.findViewById(R.id.cardImageUserProfile);
         }
 
-        void bindData(final ListElementPost item) {
+        void bindData(final Post item) {
             userName.setText(item.getUserName());
             postDate.setText(item.getPostDate());
             userAddress.setText(item.getUserAddress());

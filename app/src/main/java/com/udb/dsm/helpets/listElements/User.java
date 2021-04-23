@@ -8,11 +8,10 @@ public class User {
     public String userImageBackground;
     public String userAddress;
     public String userPhone;
-    public String userPassword;
 
     public User() {}
 
-    public User(String userId, String userName, String userEmail, String userImageProfile, String userImageBackground, String userAddress, String userPhone, String userPassword) {
+    public User(String userId, String userName, String userEmail, String userImageProfile, String userImageBackground, String userAddress, String userPhone) {
         this.userId = userId;
         this.userName = userName;
         this.userEmail = userEmail;
@@ -20,7 +19,6 @@ public class User {
         this.userImageBackground = userImageBackground;
         this.userAddress = userAddress;
         this.userPhone = userPhone;
-        this.userPassword = userPassword;
     }
 
     public String getUserId() {
@@ -78,8 +76,4 @@ public class User {
     public void setUserPhone(String userPhone) {
         this.userPhone = userPhone;
     }
-
-    public String getUserPassword() { return userPassword; }
-
-    public void setUserPassword(String userPassword) { this.userPassword = userPassword; }
 }
