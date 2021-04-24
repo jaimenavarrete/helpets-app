@@ -67,10 +67,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             postTitle.setText(item.getPostTitle());
             postDescription.setText(item.getPostDescription());
 
-            try {
-                Picasso.with(context).load(item.getUserImageProfile()).into(imageUserProfile);
-            } catch (Exception ignored) {
-            }
+            Picasso.with(context).load(item.getUserImageProfile()).into(imageUserProfile);
         }
     }
 }

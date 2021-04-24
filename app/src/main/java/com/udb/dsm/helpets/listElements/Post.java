@@ -23,11 +23,11 @@ public class Post {
     }
 
     public String getPostId() {
-        return userId;
+        return postId;
     }
 
-    public void setPostId(String userId) {
-        this.userId = userId;
+    public void setPostId(String postId) {
+        this.postId = postId;
     }
 
     public String getUserId() {

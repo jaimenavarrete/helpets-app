@@ -40,6 +40,8 @@ public class UserActivity extends AppCompatActivity {
     FirebaseStorage storage;
     StorageReference storageRef;
 
+    FirebaseUser firebaseUser;
+
     ImageView imageUserBackground;
     CircleImageView imageUserProfile;
 
@@ -55,6 +57,8 @@ public class UserActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
+
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         Toolbar toolbar = findViewById(R.id.userToolbar);
         toolbar.setTitle("Perfil");
@@ -87,6 +91,7 @@ public class UserActivity extends AppCompatActivity {
         }
         else if(id == R.id.action_logout) {
             Toast.makeText(UserActivity.this, "Has hecho click en el botón de cerrar sesión", Toast.LENGTH_LONG).show();
+
             Intent i = new Intent(UserActivity.this, LoginActivity.class);
             startActivity(i);
         }
@@ -130,14 +135,15 @@ public class UserActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 // Get user info
-                user = snapshot.child("users").child("SxknLnmvVCMIxQfuHVOF2iiBOi63").getValue(User.class);
+                user = snapshot.child("users").child(firebaseUser.getUid()).getValue(User.class);
 
                 // Set user info into the textViews
                 textUserName.setText(user.getUserName());
-                textUserEmail.setText(user.getUserEmail());
+                textUserEmail.setText(firebaseUser.getEmail());
                 textUserAddress.setText(user.getUserAddress());
                 textUserPhone.setText(user.getUserPhone());
 
+                // Set user images
                 Picasso.with(UserActivity.this).load(user.getUserImageBackground()).into(imageUserBackground);
                 Picasso.with(UserActivity.this).load(user.getUserImageProfile()).into(imageUserProfile);
             }
@@ -159,13 +165,15 @@ public class UserActivity extends AppCompatActivity {
                     Post post = productSnapshot.getValue(Post.class);
                     post.setPostId(productSnapshot.getKey());
 
-                    // Set the user info into the post object
-                    post.setUserName(user.getUserName());
-                    post.setUserAddress(user.getUserAddress());
-                    post.setUserId(user.getUserId());
-                    post.setUserImageProfile(user.getUserImageProfile());
+                    if(post.getUserId().equals(firebaseUser.getUid())) {
+                        // Set the user info into the post object
+                        post.setUserName(user.getUserName());
+                        post.setUserAddress(user.getUserAddress());
+                        post.setUserId(user.getUserId());
+                        post.setUserImageProfile(user.getUserImageProfile());
 
-                    posts.add(post);
+                        posts.add(post);
+                    }
                 }
 
                 PostAdapter listAdapter = new PostAdapter(posts, UserActivity.this);
