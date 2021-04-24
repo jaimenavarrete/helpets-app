@@ -57,7 +57,7 @@
                 android:id="@+id/textUserName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Daniel Calderon"
+                android:text="Nombre completo"
 
                 android:textSize="30dp"
                 android:layout_gravity="center_horizontal"
@@ -87,7 +87,7 @@
                     android:id="@+id/textUserAddress"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Apopa, San Salvador"
+                    android:text="Dirección"
 
                     android:textSize="16dp"
                     android:textColor="#7D7D7D"
@@ -115,7 +115,7 @@
                     android:id="@+id/textUserEmail"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="daniel.calderon@gmail.com"
+                    android:text="Email"
 
                     android:textSize="16dp"
                     android:textColor="#7D7D7D"
@@ -142,7 +142,7 @@
                     android:id="@+id/textUserPhone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="1234-56789"
+                    android:text="Teléfono"
 
                     android:textSize="16dp"
                     android:layout_gravity="center_horizontal"
