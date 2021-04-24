@@ -80,7 +80,7 @@ public class UserActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if(id == R.id.action_return) {
-            Toast.makeText(UserActivity.this, "Has hecho click en el botón de retorno", Toast.LENGTH_LONG).show();
+            finish();
         }
         else if(id == R.id.action_notifications) {
             Toast.makeText(UserActivity.this, "Has hecho click en el botón de notificaciones", Toast.LENGTH_LONG).show();
@@ -163,15 +163,8 @@ public class UserActivity extends AppCompatActivity {
 
                 for (DataSnapshot productSnapshot : snapshot.child("posts").getChildren()) {
                     Post post = productSnapshot.getValue(Post.class);
-                    post.setPostId(productSnapshot.getKey());
 
                     if(post.getUserId().equals(firebaseUser.getUid())) {
-                        // Set the user info into the post object
-                        post.setUserName(user.getUserName());
-                        post.setUserAddress(user.getUserAddress());
-                        post.setUserId(user.getUserId());
-                        post.setUserImageProfile(user.getUserImageProfile());
-
                         posts.add(post);
                     }
                 }
