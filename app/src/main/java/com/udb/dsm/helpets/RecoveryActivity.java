@@ -12,7 +12,12 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.FirebaseApp;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -24,91 +29,47 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class RecoveryActivity extends AppCompatActivity {
+    private FirebaseAuth mAuth;
 
-    private boolean exists = false;
-    private EditText etEmail;
+    private TextInputLayout etEmail;
     private Button btnRemember, btnBack;
-    private List<String> listEmail = new ArrayList<String>();
-    FirebaseDatabase firebaseDatabase;
-    DatabaseReference databaseReference;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_recovery);
-        initializeUI();
-        initializeFirebase();
-        btnRemember.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                sendRecoveryEmail();
-            }
-        });
-        btnBack.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) { finish(); }
-        });
+
+        mAuth = FirebaseAuth.getInstance();
+
+        initializeElements();
     }
 
-    private void sendRecoveryEmail() {
-        String email = etEmail.getText().toString();
-        if (TextUtils.isEmpty(email)) {
-            Toast.makeText(getApplicationContext(), "Please Enter Email...", Toast.LENGTH_LONG).show();
-            return;
-        }
-        else {
-              getEmail(email);
-              if (exists) {
-                  Intent emailIntent = new Intent(Intent.ACTION_SEND);
-                  emailIntent.setData(Uri.parse("mailto:"));
-                  emailIntent.setType("text/plain");
-                  emailIntent.putExtra(Intent.EXTRA_EMAIL, email);
-                  emailIntent.putExtra(Intent.EXTRA_SUBJECT, "HelPets Password Recovery");
-                  emailIntent.putExtra(Intent.EXTRA_TEXT, "This is your recovery code: " + (int)(Math.random()*9999)+1);
-                  try {
-                      startActivity(Intent.createChooser(emailIntent, "Sending Email"));
-                      Toast.makeText(this, "Sending Recovery Email ...", Toast.LENGTH_SHORT).show();
-                  }
-                  catch (android.content.ActivityNotFoundException e) {
-                      Toast.makeText(this, "NO email client installed.", Toast.LENGTH_SHORT).show();
-                  }
-              }
-              else {
-                  Toast.makeText(getApplicationContext(), "User " + email + " doesn't exist", Toast.LENGTH_LONG).show();
-              }
-        }
+    private void initializeElements() {
+        etEmail= findViewById(R.id.etEmail);
 
-    }
-
-    protected void getEmail(String email){
-        databaseReference.child("users").addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                for (DataSnapshot objSnapshot: snapshot.getChildren()){
-                    User user = objSnapshot.getValue(User.class);
-                    listEmail.add(user.getUserEmail());
-                    for (String o : listEmail){
-                        if (email.equals(o)) exists = true;
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-
-            }
-        });
-    }
-
-    private void initializeUI() {
-        etEmail= findViewById(R.id.etUser);
-        btnBack = findViewById(R.id.btnBack);
         btnRemember = findViewById(R.id.btnRemember);
+        btnRemember.setOnClickListener(v -> {
+            sendRecoveryEmail(etEmail.getEditText().getText().toString());
+        });
+
+        btnBack = findViewById(R.id.btnBack);
+        btnBack.setOnClickListener(v -> {
+            finish();
+        });
     }
 
-    public void initializeFirebase(){
-        FirebaseApp.initializeApp(this);
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference();
+    private void sendRecoveryEmail(String email) {
+        mAuth.sendPasswordResetEmail(email).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+                Toast.makeText(RecoveryActivity.this, "Se le ha enviado un correo para modificar su contraseña", Toast.LENGTH_SHORT).show();
+            }
+        })
+        .addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+
+            }
+        });
     }
 }
