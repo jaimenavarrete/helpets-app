@@ -40,6 +40,7 @@ public class UserActivity extends AppCompatActivity {
     FirebaseStorage storage;
     StorageReference storageRef;
 
+    private FirebaseAuth mAuth;
     FirebaseUser firebaseUser;
 
     ImageView imageUserBackground;
@@ -58,6 +59,7 @@ public class UserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
 
+        mAuth = FirebaseAuth.getInstance();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         Toolbar toolbar = findViewById(R.id.userToolbar);
@@ -90,10 +92,12 @@ public class UserActivity extends AppCompatActivity {
             startActivity(intent);
         }
         else if(id == R.id.action_logout) {
-            Toast.makeText(UserActivity.this, "Has hecho click en el botón de cerrar sesión", Toast.LENGTH_LONG).show();
+            mAuth.signOut();
 
             Intent i = new Intent(UserActivity.this, LoginActivity.class);
             startActivity(i);
+
+            finish();
         }
 
         return true;

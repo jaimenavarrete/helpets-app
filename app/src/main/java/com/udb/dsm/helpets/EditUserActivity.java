@@ -46,6 +46,7 @@ public class EditUserActivity extends AppCompatActivity {
     FirebaseStorage storage;
     StorageReference storageRef;
 
+    private FirebaseAuth mAuth;
     FirebaseUser firebaseUser;
 
     ImageView imageUserBackground;
@@ -78,6 +79,7 @@ public class EditUserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_user);
 
+        mAuth = FirebaseAuth.getInstance();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         Toolbar toolbar = findViewById(R.id.userToolbar);
@@ -91,7 +93,7 @@ public class EditUserActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_user, menu);
+        getMenuInflater().inflate(R.menu.menu_edit_user, menu);
         return true;
     }
 
@@ -105,11 +107,13 @@ public class EditUserActivity extends AppCompatActivity {
         else if(id == R.id.action_notifications) {
             Toast.makeText(EditUserActivity.this, "Has hecho click en el botón de notificaciones", Toast.LENGTH_LONG).show();
         }
-        else if(id == R.id.action_edit_user) {
-            Toast.makeText(EditUserActivity.this, "Has hecho click en el botón de editar usuario", Toast.LENGTH_LONG).show();
-        }
         else if(id == R.id.action_logout) {
-            Toast.makeText(EditUserActivity.this, "Has hecho click en el botón de cerrar sesión", Toast.LENGTH_LONG).show();
+            mAuth.signOut();
+
+            Intent i = new Intent(EditUserActivity.this, LoginActivity.class);
+            startActivity(i);
+
+            finish();
         }
 
         return true;
@@ -346,7 +350,7 @@ public class EditUserActivity extends AppCompatActivity {
         String phone = textUserPhone.getEditText().getText().toString();
         String address = textUserAddress.getEditText().getText().toString();
 
-        if(!name.equals("") && !phone.equals("") && !address.equals("")) {
+        if(!name.equals("")) {
             user.setUserName(name);
             user.setUserPhone(phone);
             user.setUserAddress(address);
@@ -355,7 +359,7 @@ public class EditUserActivity extends AppCompatActivity {
             pDatabase.child("users").child(firebaseUser.getUid()).setValue(user);
         }
         else {
-            Toast.makeText(EditUserActivity.this, "Debe rellenar todos los campos de datos", Toast.LENGTH_LONG).show();
+            Toast.makeText(EditUserActivity.this, "Debe rellenar el nombre completo", Toast.LENGTH_LONG).show();
         }
     }
 }
