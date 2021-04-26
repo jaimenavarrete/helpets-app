@@ -31,3 +31,9 @@ Utilizaremos Github para el versionado de nuestro proyecto, para ver todas las v
  - ZULMA IVETH MEJIA HERNANDEZ - MH040413 - GT03
  - CARLOS ENRIQUE, MERINO NAVARRO - MN182254 - GT02 
  - JAIME EDUARDO, NAVARRETE CUBIAS - NC180383 - GT01
+
+## Enlaces importantes 
+ - [Manual de usuario + Manual técnico](https://drive.google.com/drive/folders/1A8r5RT8DoHIpflYkIeFEbmxGulFvlAcI?usp=sharing)
+ - [Trello (Tablero de HelPets)](https://trello.com/b/F0iWysTi/helpets-app)
+ - [Figma (Mock Ups)](https://www.figma.com/file/di5GvnwEI9OL6Yl8HcMJTv/Desarrollo-de-Software-para-M%C3%B3viles?node-id=0:1)
+ - [Demostración de funcionamiento](https://www.youtube.com/watch?v=izNNr0bqbjo)
