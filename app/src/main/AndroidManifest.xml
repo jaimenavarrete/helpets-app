@@ -19,11 +19,8 @@
         <activity
             android:name=".UserActivity"
             android:theme="@style/Theme.HelPets.NoActionBar">
-            <!--<intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
-        </activity>
+
+     </activity>
         <activity
             android:name=".SplashScreen"
             android:theme="@style/Theme.HelPets.NoActionBar" />
@@ -33,7 +30,12 @@
             android:theme="@style/Theme.HelPets.NoActionBar" />
         <activity
             android:name=".LoginActivity"
-            android:theme="@style/Theme.HelPets.NoActionBar" />
+            android:theme="@style/Theme.HelPets.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".SignupActivity"
             android:theme="@style/Theme.HelPets.NoActionBar" />

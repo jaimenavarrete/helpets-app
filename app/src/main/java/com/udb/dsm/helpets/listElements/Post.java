@@ -1,13 +1,26 @@
 package com.udb.dsm.helpets.listElements;
 
 public class Post {
-    private String postId;
-    private String postTitulo;
-    private String postCategoria;
-    private String postDescripcion;
-    private String postFoto;
+    public String postId;
+    public String userId;
+    public String userName;
+    public String userImageProfile;
+    public String postDate;
+    public String userAddress;
+    public String postTitle;
+    public String postDescription;
 
-    public Post() {
+
+    public Post() {}
+
+    public Post(String userId, String userName, String userImageProfile, String postDate, String userAddress, String postTitle, String postDescription) {
+        this.userId = userId;
+        this.userName = userName;
+        this.userImageProfile = userImageProfile;
+        this.postDate = postDate;
+        this.userAddress = userAddress;
+        this.postTitle = postTitle;
+        this.postDescription = postDescription;
     }
 
     public String getPostId() {
@@ -18,40 +31,59 @@ public class Post {
         this.postId = postId;
     }
 
-    public String getPostTitulo() {
-        return postTitulo;
+    public String getUserId() {
+        return userId;
     }
 
-    public void setPostTitulo(String postTitulo) {
-        this.postTitulo = postTitulo;
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
-    public String getPostCategoria() {
-        return postCategoria;
+    public String getUserName() {
+        return userName;
     }
 
-    public void setPostCategoria(String postCategoria) {
-        this.postCategoria = postCategoria;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public String getPostDescripcion() {
-        return postDescripcion;
+    public String getUserImageProfile() {
+        return userImageProfile;
     }
 
-    public void setPostDescripcion(String postDescripcion) {
-        this.postDescripcion = postDescripcion;
+    public void setUserImageProfile(String userImageProfile) {
+        this.userImageProfile = userImageProfile;
     }
 
-    public String getPostFoto() {
-        return postFoto;
+    public String getPostDate() {
+        return postDate;
     }
 
-    public void setPostFoto(String postFoto) {
-        this.postFoto = postFoto;
+    public void setPostDate(String postDate) {
+        this.postDate = postDate;
     }
 
-    @Override
-    public String toString() {
-        return postTitulo ;
+    public String getUserAddress() {
+        return userAddress;
+    }
+
+    public void setUserAddress(String userAddress) {
+        this.userAddress = userAddress;
+    }
+
+    public String getPostTitle() {
+        return postTitle;
+    }
+
+    public void setPostTitle(String postTitle) {
+        this.postTitle = postTitle;
+    }
+
+    public String getPostDescription() {
+        return postDescription;
+    }
+
+    public void setPostDescription(String postDescription) {
+        this.postDescription = postDescription;
     }
 }

@@ -78,9 +78,9 @@ public class CreatePostActivity extends AppCompatActivity {
         else{
             Post p = new Post();
             p.setPostId(UUID.randomUUID().toString());
-            p.setPostTitulo(titulo);
-            p.setPostCategoria(categoria);
-            p.setPostDescripcion(descripcion);
+            p.setPostTitle(titulo);
+            //p.setPostCategoria(categoria);
+            p.setPostDescription(descripcion);
             databaseReference.child("Post").child(p.getPostId()).setValue(p);
             Toast.makeText(this, "Agregado", Toast.LENGTH_LONG).show();
             limpiar();

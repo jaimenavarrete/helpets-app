@@ -68,17 +68,14 @@ public class LoginActivity extends AppCompatActivity {
         }
 
         mAuth.signInWithEmailAndPassword(user, password)
-            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                @Override
-                public void onComplete(@NonNull Task<AuthResult> task) {
-                    if (task.isSuccessful()) {
-                        Toast.makeText(getApplicationContext(), "Inicio de sesión exitoso!", Toast.LENGTH_LONG).show();
-                        Intent i = new Intent(LoginActivity.this, UserActivity.class);
-                        startActivity(i);
-                    }
-                    else {
-                        Toast.makeText(getApplicationContext(), "El inicio de sesión falló! Por favor inténtelo más tarde", Toast.LENGTH_LONG).show();
-                    }
+            .addOnCompleteListener(task -> {
+                if (task.isSuccessful()) {
+                    Toast.makeText(getApplicationContext(), "Inicio de sesión exitoso!", Toast.LENGTH_LONG).show();
+                    Intent i = new Intent(LoginActivity.this, UserActivity.class);
+                    startActivity(i);
+                }
+                else {
+                    Toast.makeText(getApplicationContext(), "El inicio de sesión falló! Por favor inténtelo más tarde", Toast.LENGTH_LONG).show();
                 }
             });
     }
