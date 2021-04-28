@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+
+    android:background="#F2F2F2"
+    tools:context=".UserActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/userToolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/primary_color_700"
+        android:textColor="@color/white"
+        android:theme="@style/toolbarTheme"
+
+        app:title="@string/app_name"
+        app:titleTextColor="@color/white"
+        />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="10dp"
+                android:hint="Titulo de la publicación:"
+                app:boxBackgroundColor="#FFFFFF"
+
+                app:startIconDrawable="@drawable/user_icon"
+                app:startIconTint="@color/primary_color">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etTitulo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="text" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="20dp"
+                app:boxBackgroundColor="#FFFFFF"
+                android:id="@+id/til_menu"
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                app:startIconDrawable="@drawable/user_icon"
+                app:startIconTint="@color/primary_color">
+
+                <AutoCompleteTextView
+                    android:id="@+id/act_Categoria"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:inputType="none"
+                    android:hint="Categoria"
+                    />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/textUserPost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Descripción de la publicación"
+
+                android:textSize="18dp"
+                android:textColor="#212121"
+                android:textStyle="bold"
+
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginBottom="10dp"
+                />
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+                android:layout_width="match_parent"
+                android:layout_height="105dp"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:hint=""
+                app:boxBackgroundColor="#FFFFFF"
+
+
+                app:startIconTint="@color/primary_color">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/etDescripcion"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="text" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <TextView
+                android:id="@+id/textUserfotos"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Fotos"
+
+                android:textSize="18dp"
+                android:textColor="#212121"
+                android:textStyle="bold"
+
+                android:layout_marginHorizontal="10dp"
+                android:layout_marginBottom="10dp"
+                />
+
+
+            <Button
+                android:id="@+id/buttonEditUser"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginHorizontal="10dp"
+
+                android:layout_marginBottom="20dp"
+                android:backgroundTint="#FFF"
+
+                android:text="Publicar"
+                android:textColor="@color/primary_color"
+                android:textStyle="bold"
+
+                app:icon="@drawable/edit_icon"
+                app:iconGravity="textEnd"
+                app:iconSize="25dp"
+                app:iconTint="@color/primary_color"
+                app:strokeColor="#DFDFDF"
+                app:strokeWidth="2dp" />
+
+            <TextView
+                android:id="@+id/txtIdUsuario"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:clickable="true"
+                android:text="TextView"
+                android:visibility="invisible" />
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>

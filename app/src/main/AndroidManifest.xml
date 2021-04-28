@@ -19,10 +19,10 @@
         <activity
             android:name=".UserActivity"
             android:theme="@style/Theme.HelPets.NoActionBar">
-            <intent-filter>
+            <!--<intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+            </intent-filter>-->
         </activity>
         <activity
             android:name=".SplashScreen"
@@ -40,6 +40,14 @@
         <activity
             android:name=".RecoveryActivity"
             android:theme="@style/Theme.HelPets.NoActionBar" />
+        <activity
+            android:name=".CreatePostActivity"
+            android:theme="@style/Theme.HelPets.NoActionBar" >
+        <intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>
+        </activity>
     </application>
 
 </manifest>
