@@ -126,9 +126,34 @@
                 android:layout_marginBottom="10dp"
                 />
 
+            <ImageView
+                android:id="@+id/imagePost"
+                android:layout_width="match_parent"
+                android:layout_height="200dp"
+                android:background="#FFFFFF"
+                android:scaleType="fitCenter"
+                android:layout_marginHorizontal="20dp"
+                android:layout_marginBottom="20dp"/>
+
 
             <Button
-                android:id="@+id/buttonEditUser"
+                android:id="@+id/buttonImagePost"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_gravity="end"
+                android:layout_marginTop="-60dp"
+                android:layout_marginEnd="10dp"
+                android:background="@drawable/circular_button"
+                android:paddingStart="13dp"
+
+                app:backgroundTint="#FFFFFF"
+                app:icon="@drawable/camera_icon"
+                app:iconTint="@color/secondary_color">
+
+            </Button>
+
+            <Button
+                android:id="@+id/buttonCreatePost"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginHorizontal="10dp"
@@ -138,8 +163,8 @@
 
                 android:text="Publicar"
                 android:textColor="@color/primary_color"
-                android:textStyle="bold"
 
+                android:textStyle="bold"
                 app:icon="@drawable/edit_icon"
                 app:iconGravity="textEnd"
                 app:iconSize="25dp"
@@ -148,12 +173,13 @@
                 app:strokeWidth="2dp" />
 
             <TextView
-                android:id="@+id/txtIdUsuario"
+                android:id="@+id/txtUrlImage"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:text="TextView"
                 android:visibility="invisible" />
+
 
 
         </LinearLayout>
