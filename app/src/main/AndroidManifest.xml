@@ -33,10 +33,10 @@
         <activity
             android:name=".LoginActivity"
             android:theme="@style/Theme.HelPets.NoActionBar">
-            <!--<intent-filter>
+            <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>-->
+            </intent-filter>
         </activity>
         <activity
             android:name=".SignupActivity"
@@ -47,10 +47,10 @@
         <activity
             android:name=".CreatePostActivity"
             android:theme="@style/Theme.HelPets.NoActionBar" >
-            <intent-filter>
+            <!--<intent-filter>
             <action android:name="android.intent.action.MAIN" />
             <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
+        </intent-filter>-->
         </activity>
     </application>
 

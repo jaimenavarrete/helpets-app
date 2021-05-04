@@ -34,6 +34,7 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.udb.dsm.helpets.listElements.Post;
+import com.udb.dsm.helpets.listElements.User;
 
 import java.util.ArrayList;
 import java.util.UUID;
@@ -50,6 +51,7 @@ public class CreatePostActivity extends AppCompatActivity {
     private ImageView myImageView;
     private ProgressDialog myProgressDialog;
     private TextView urlImage;
+    private  User users;
 
     ArrayList<String> menu;
     ArrayAdapter<String> i;
@@ -159,10 +161,13 @@ public class CreatePostActivity extends AppCompatActivity {
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
         if (user != null){
-            String name = user.getDisplayName();
+
+
             String id = user.getUid();
+            String name = user.getDisplayName();
+
             String address = user.getEmail();
-            String UserImage = user.getPhotoUrl().toString();
+          // Uri UserImage = user.getPhotoUrl();
 
 
         Time now =  new Time (Time.getCurrentTimezone());
@@ -171,7 +176,7 @@ public class CreatePostActivity extends AppCompatActivity {
         int mes = now.month;
         int anio = now.year;
         mes= mes+1;
-        String Date = dia + "-" + mes + "-" + anio;
+        String Date = dia + "/" + mes + "/" + anio;
         String titulo = etTitulo.getText().toString();
         String categoria = act_categoria.getText().toString();
         String descripcion = etDescripcion.getText().toString();
@@ -192,7 +197,7 @@ public class CreatePostActivity extends AppCompatActivity {
             p.setUserId(id);
             p.setUserName(name);
             p.setUserAddress(address);
-            p.setUserImageProfile(UserImage);
+           // p.setUserImageProfile(UserImage.toString());
             databaseReference.child("Post").child(p.getPostId()).setValue(p);
             Toast.makeText(this, "Agregado", Toast.LENGTH_LONG).show();
             limpiar();
