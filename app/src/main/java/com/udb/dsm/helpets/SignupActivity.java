@@ -31,8 +31,7 @@ import java.util.UUID;
 
 
 public class SignupActivity extends AppCompatActivity {
-    TextInputLayout etEmail, etPassword;
-    EditText etName, etAddress, etNumber, etRepeatPassword;
+    TextInputLayout etEmail, etPassword, etName, etAddress, etNumber, etRepeatPassword;
     TextView tvLogin;
     Button btnSignup;
     FirebaseDatabase firebaseDatabase;
@@ -61,8 +60,10 @@ public class SignupActivity extends AppCompatActivity {
                             Toast.makeText(getApplicationContext(), "Se ha registrado correctamente!", Toast.LENGTH_LONG).show();
                             insertData();
 
-                            Intent i = new Intent(SignupActivity.this, UserActivity.class);
+                            Intent i = new Intent(SignupActivity.this, MainActivity.class);
                             startActivity(i);
+
+                            finish();
                         }
                         else {
                             Toast.makeText(getApplicationContext(), "Ha fallado el registro! Por favor, inténtelo más tarde", Toast.LENGTH_LONG).show();
@@ -76,9 +77,9 @@ public class SignupActivity extends AppCompatActivity {
 
         User u = new User();
         u.setUserId(firebaseUser.getUid());
-        u.setUserName(etName.getText().toString());
-        u.setUserPhone(etNumber.getText().toString());
-        u.setUserAddress(etAddress.getText().toString());
+        u.setUserName(etName.getEditText().getText().toString());
+        u.setUserPhone(etNumber.getEditText().getText().toString());
+        u.setUserAddress(etAddress.getEditText().getText().toString());
         // Default images
         u.setUserImageBackground("https://firebasestorage.googleapis.com/v0/b/helpets-ccc8d.appspot.com/o/users%2Fbackgrounds%2Fdefault.jpeg?alt=media&token=f7dec4de-f02c-4e77-b9b6-0566b1058794");
         u.setUserImageProfile("https://firebasestorage.googleapis.com/v0/b/helpets-ccc8d.appspot.com/o/users%2Fprofiles%2Fdefault.jpg?alt=media&token=c112b593-3d69-4d0b-bc80-570acf6e9b34");
@@ -109,21 +110,19 @@ public class SignupActivity extends AppCompatActivity {
 
         btnSignup = this.findViewById(R.id.btnSignup);
         btnSignup.setOnClickListener(v -> {
-            createUser(etEmail.getEditText().getText().toString(), etPassword.getEditText().getText().toString());
-
-//            if(validateFields() && validatePassword()) {
-//                createUser(etEmail.getText().toString(), etPassword.getText().toString());
-//            }
-//            else {
-//                Toast.makeText(this, "Debe rellenar todos los campos!", Toast.LENGTH_LONG).show();
-//            }
+            if(validateFields() && validatePassword()) {
+                createUser(etEmail.getEditText().getText().toString(), etPassword.getEditText().getText().toString());
+            }
+            else {
+                Toast.makeText(this, "Debe rellenar todos los campos requeridos!", Toast.LENGTH_LONG).show();
+            }
         });
     }
 
     protected boolean validatePassword() {
         int b = 0;
         String Password = etPassword.getEditText().getText().toString().trim();
-        String RepeatPassword = etRepeatPassword.getText().toString().trim();
+        String RepeatPassword = etRepeatPassword.getEditText().getText().toString().trim();
         etPassword.setError(null);
         etRepeatPassword.setError(null);
         if (!Password.matches(".*[!@#$%^&*+=?-].*"))
@@ -149,17 +148,13 @@ public class SignupActivity extends AppCompatActivity {
     }
 
     protected boolean validateFields() {
-        if(etName.getText().toString().isEmpty())
+        if(etName.getEditText().getText().toString().isEmpty())
             etName.setError("Required");
         else if (etEmail.getEditText().getText().toString().isEmpty())
             etEmail.setError("Required");
-        else if (etAddress.getText().toString().isEmpty())
-            etAddress.setError("Required");
-        else if (etNumber.getText().toString().isEmpty())
-            etNumber.setError("Required");
         else if(etPassword.getEditText().getText().toString().isEmpty())
             etPassword.setError("Required");
-        else if (etRepeatPassword.getText().toString().isEmpty())
+        else if (etRepeatPassword.getEditText().getText().toString().isEmpty())
             etRepeatPassword.setError("Required");
         else return true;
 

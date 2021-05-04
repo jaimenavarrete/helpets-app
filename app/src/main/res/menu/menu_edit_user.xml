@@ -19,11 +19,6 @@
         app:showAsAction="ifRoom" />
 
     <item
-        android:id="@+id/action_edit_user"
-        android:title="@string/action_edit_user"
-        app:showAsAction="never" />
-
-    <item
         android:id="@+id/action_logout"
         android:title="@string/action_logout"
         app:showAsAction="never" />

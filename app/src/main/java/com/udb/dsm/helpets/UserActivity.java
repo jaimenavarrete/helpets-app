@@ -40,6 +40,7 @@ public class UserActivity extends AppCompatActivity {
     FirebaseStorage storage;
     StorageReference storageRef;
 
+    private FirebaseAuth mAuth;
     FirebaseUser firebaseUser;
 
     ImageView imageUserBackground;
@@ -58,6 +59,7 @@ public class UserActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_user);
 
+        mAuth = FirebaseAuth.getInstance();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         Toolbar toolbar = findViewById(R.id.userToolbar);
@@ -80,7 +82,7 @@ public class UserActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if(id == R.id.action_return) {
-            Toast.makeText(UserActivity.this, "Has hecho click en el botón de retorno", Toast.LENGTH_LONG).show();
+            finish();
         }
         else if(id == R.id.action_notifications) {
             Toast.makeText(UserActivity.this, "Has hecho click en el botón de notificaciones", Toast.LENGTH_LONG).show();
@@ -90,10 +92,12 @@ public class UserActivity extends AppCompatActivity {
             startActivity(intent);
         }
         else if(id == R.id.action_logout) {
-            Toast.makeText(UserActivity.this, "Has hecho click en el botón de cerrar sesión", Toast.LENGTH_LONG).show();
+            mAuth.signOut();
 
             Intent i = new Intent(UserActivity.this, LoginActivity.class);
             startActivity(i);
+
+            finish();
         }
 
         return true;
@@ -163,15 +167,8 @@ public class UserActivity extends AppCompatActivity {
 
                 for (DataSnapshot productSnapshot : snapshot.child("posts").getChildren()) {
                     Post post = productSnapshot.getValue(Post.class);
-                    post.setPostId(productSnapshot.getKey());
 
                     if(post.getUserId().equals(firebaseUser.getUid())) {
-                        // Set the user info into the post object
-                        post.setUserName(user.getUserName());
-                        post.setUserAddress(user.getUserAddress());
-                        post.setUserId(user.getUserId());
-                        post.setUserImageProfile(user.getUserImageProfile());
-
                         posts.add(post);
                     }
                 }

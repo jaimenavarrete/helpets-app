@@ -32,6 +32,7 @@
         android:layout_height="35dp" />
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/etEmail"
         style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -45,7 +46,6 @@
         app:startIconTint="@color/white">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etUser"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="textEmailAddress" />

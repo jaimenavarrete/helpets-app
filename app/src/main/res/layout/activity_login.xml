@@ -100,13 +100,25 @@
             android:layout_height="wrap_content"
             android:layout_marginHorizontal="10dp"
 
-            android:layout_marginBottom="20dp"
+            android:layout_marginBottom="10dp"
             android:backgroundTint="#FFF"
 
             android:text="@string/login"
             android:textColor="@color/primary_color"
             android:textStyle="bold"
             android:textAlignment="center" />
+
+        <Button
+            android:id="@+id/btnLoginGoogle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginHorizontal="10dp"
+            android:layout_marginBottom="20dp"
+
+            android:text="Continuar con Google"
+            android:textAllCaps="false"
+            app:backgroundTint="#DC4D28"
+            app:icon="@drawable/googleg_standard_color_18" />
 
         <TextView
             android:id="@+id/textView3"

@@ -8,19 +8,36 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <Button
-        android:id="@+id/btnRegister"
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/mainToolbar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:text="Registrarse"
-        app:backgroundTint="#BD5A5A" />
+        android:background="@color/primary_color_700"
+        android:textColor="@color/white"
+        android:theme="@style/toolbarTheme"
 
-    <Button
-        android:id="@+id/btnLogin"
+        app:title="@string/app_name"
+        app:titleTextColor="@color/white"
+        />
+
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginHorizontal="20dp"
-        android:text="Registrarse"
-        app:backgroundTint="#BD5A5A" />
+        android:layout_height="match_parent"
+        >
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/recyclerViewPosts"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" />
+
+        </LinearLayout>
+
+    </ScrollView>
+
 </LinearLayout>

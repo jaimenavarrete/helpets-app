@@ -35,9 +35,13 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
+import com.udb.dsm.helpets.listElements.Post;
+import com.udb.dsm.helpets.listElements.PostAdapter;
 import com.udb.dsm.helpets.listElements.User;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -46,6 +50,7 @@ public class EditUserActivity extends AppCompatActivity {
     FirebaseStorage storage;
     StorageReference storageRef;
 
+    private FirebaseAuth mAuth;
     FirebaseUser firebaseUser;
 
     ImageView imageUserBackground;
@@ -73,11 +78,14 @@ public class EditUserActivity extends AppCompatActivity {
 
     User user;
 
+    List<Post> posts = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_user);
 
+        mAuth = FirebaseAuth.getInstance();
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         Toolbar toolbar = findViewById(R.id.userToolbar);
@@ -91,7 +99,7 @@ public class EditUserActivity extends AppCompatActivity {
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_user, menu);
+        getMenuInflater().inflate(R.menu.menu_edit_user, menu);
         return true;
     }
 
@@ -105,11 +113,13 @@ public class EditUserActivity extends AppCompatActivity {
         else if(id == R.id.action_notifications) {
             Toast.makeText(EditUserActivity.this, "Has hecho click en el botón de notificaciones", Toast.LENGTH_LONG).show();
         }
-        else if(id == R.id.action_edit_user) {
-            Toast.makeText(EditUserActivity.this, "Has hecho click en el botón de editar usuario", Toast.LENGTH_LONG).show();
-        }
         else if(id == R.id.action_logout) {
-            Toast.makeText(EditUserActivity.this, "Has hecho click en el botón de cerrar sesión", Toast.LENGTH_LONG).show();
+            mAuth.signOut();
+
+            Intent i = new Intent(EditUserActivity.this, LoginActivity.class);
+            startActivity(i);
+
+            finish();
         }
 
         return true;
@@ -205,8 +215,12 @@ public class EditUserActivity extends AppCompatActivity {
 
                     if(uriTask.isSuccessful()) {
                         if(isUserImageProfile) {
-                            pDatabase.child("users").child(firebaseUser.getUid()).child("userImageProfile").setValue("image");
                             pDatabase.child("users").child(firebaseUser.getUid()).child("userImageProfile").setValue(uriDownload.toString());
+
+                            for(Post post : posts) {
+                                post.setUserImageProfile(uriDownload.toString());
+                                pDatabase.child("posts").child(post.getPostId()).setValue(post);
+                            }
                         }
                         else {
                             pDatabase.child("users").child(firebaseUser.getUid()).child("userImageBackground").setValue("image");
@@ -238,6 +252,7 @@ public class EditUserActivity extends AppCompatActivity {
     protected void initializeDatabase() {
         pDatabase = FirebaseDatabase.getInstance().getReference();
         pDatabase.addValueEventListener(userEvent());
+        pDatabase.addValueEventListener(postListEvent());
     }
 
     protected void setInputData() {
@@ -261,6 +276,28 @@ public class EditUserActivity extends AppCompatActivity {
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {}
+        };
+    }
+
+    protected ValueEventListener postListEvent() {
+        return new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                posts.clear();
+
+                for (DataSnapshot productSnapshot : snapshot.child("posts").getChildren()) {
+                    Post post = productSnapshot.getValue(Post.class);
+
+                    if(post.getUserId().equals(firebaseUser.getUid())) {
+                        posts.add(post);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
         };
     }
 
@@ -346,16 +383,23 @@ public class EditUserActivity extends AppCompatActivity {
         String phone = textUserPhone.getEditText().getText().toString();
         String address = textUserAddress.getEditText().getText().toString();
 
-        if(!name.equals("") && !phone.equals("") && !address.equals("")) {
+        if(!name.equals("")) {
             user.setUserName(name);
             user.setUserPhone(phone);
             user.setUserAddress(address);
 
             Toast.makeText(EditUserActivity.this, "Los datos se han modificado correctamente", Toast.LENGTH_LONG).show();
             pDatabase.child("users").child(firebaseUser.getUid()).setValue(user);
+
+            for(Post post : posts) {
+                post.setUserName(user.getUserName());
+                post.setUserAddress(user.getUserAddress());
+                pDatabase.child("posts").child(post.getPostId()).setValue(post);
+            }
+
         }
         else {
-            Toast.makeText(EditUserActivity.this, "Debe rellenar todos los campos de datos", Toast.LENGTH_LONG).show();
+            Toast.makeText(EditUserActivity.this, "Debe rellenar el nombre completo", Toast.LENGTH_LONG).show();
         }
     }
 }
