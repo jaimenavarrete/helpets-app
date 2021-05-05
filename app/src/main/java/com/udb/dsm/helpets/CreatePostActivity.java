@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.format.Time;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -16,26 +17,32 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.Button;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.textfield.TextInputLayout;
 import com.google.firebase.FirebaseApp;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.udb.dsm.helpets.listElements.Post;
 import com.udb.dsm.helpets.listElements.User;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.UUID;
 
@@ -52,9 +59,13 @@ public class CreatePostActivity extends AppCompatActivity {
     private ProgressDialog myProgressDialog;
     private TextView urlImage;
     private  User users;
-
+    private ValueEventListener eventListener;
+    private DatabaseReference UserData;
     ArrayList<String> menu;
     ArrayAdapter<String> i;
+    String uName, uAddress, uImageUrl;
+    private FirebaseUser user;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -80,6 +91,29 @@ public class CreatePostActivity extends AppCompatActivity {
         act_categoria.setThreshold(1);
         inicializarFirebase();
         iniciarStorage();
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
+
+
+        UserData = FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid());
+
+        eventListener = new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+
+                    uName = snapshot.child("userName").getValue().toString();
+                    uAddress = snapshot.child("userAddress").getValue().toString();
+                    uImageUrl = snapshot.child("userImageProfile").getValue().toString();
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        };
+
+        UserData.addValueEventListener(eventListener);
+
 
 
         btnUpload.setOnClickListener(new View.OnClickListener() {
@@ -158,7 +192,7 @@ public class CreatePostActivity extends AppCompatActivity {
 
 
     private void guardar() {
-        FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+
 
         if (user != null){
 
@@ -168,7 +202,23 @@ public class CreatePostActivity extends AppCompatActivity {
 
             String address = user.getEmail();
           // Uri UserImage = user.getPhotoUrl();
+            
 
+
+        /*databaseReference.child("users").child(id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<DataSnapshot> task) {
+                if (!task.isSuccessful()) {
+                    Log.e("firebase", "Error getting data", task.getException());
+                }
+                else {
+                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
+
+
+                }
+
+            }
+        });*/
 
         Time now =  new Time (Time.getCurrentTimezone());
         now.setToNow();
@@ -195,10 +245,10 @@ public class CreatePostActivity extends AppCompatActivity {
             p.setPostDescription(descripcion);
             p.setPostImage(url);
             p.setUserId(id);
-            p.setUserName(name);
-            p.setUserAddress(address);
-           // p.setUserImageProfile(UserImage.toString());
-            databaseReference.child("Post").child(p.getPostId()).setValue(p);
+            p.setUserName(uName);
+            p.setUserAddress(uAddress);
+            p.setUserImageProfile(uImageUrl);
+            databaseReference.child("posts").child(p.getPostId()).setValue(p);
             Toast.makeText(this, "Agregado", Toast.LENGTH_LONG).show();
             limpiar();
         }
