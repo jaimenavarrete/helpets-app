@@ -12,7 +12,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="433dp"
+        android:layout_height="wrap_content"
         android:elevation="4dp"
 
         android:animateLayoutChanges="true"
@@ -31,9 +31,7 @@
                 android:id="@+id/cardImageUserProfile"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
-                android:layout_marginRight="10dp"
-
-                android:src="@drawable/user_image" />
+                android:layout_marginRight="10dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -92,13 +90,41 @@
             android:textColor="#212121"
             android:textSize="16dp" />
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
+            android:layout_marginBottom="10dp"
+            >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="10dp"
+                android:text="Categoría: "
+                android:textStyle="bold"
+
+                android:textColor="#212121"
+                android:textSize="16dp" />
+
+            <TextView
+                android:id="@+id/cardPostCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="10dp"
+                android:text="Categoría: "
+
+                android:textColor="#212121"
+                android:textSize="16dp" />
+
+        </LinearLayout>
+
         <ImageView
             android:id="@+id/cardPostImage"
             android:layout_width="match_parent"
             android:layout_height="175dp"
             android:scaleType="centerCrop"
-
-            android:src="@drawable/post_image"
 
             />
 

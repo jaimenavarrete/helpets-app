@@ -45,28 +45,32 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView userName, postDate, userAddress, postTitle, postDescription;
-        ImageView imageUserProfile;
+        TextView userName, postDate, userAddress, postTitle, postDescription, postCategory;
+        ImageView postImage, imageUserProfile;
 
         ViewHolder(View itemView) {
             super(itemView);
 
-            userName = itemView.findViewById(R.id.cardUserName);
             postDate = itemView.findViewById(R.id.cardPostDate);
-            userAddress = itemView.findViewById(R.id.cardUserAddress);
+            postCategory = itemView.findViewById(R.id.cardPostCategory);
             postTitle = itemView.findViewById(R.id.cardPostTitle);
             postDescription = itemView.findViewById(R.id.cardPostDescription);
+            postImage = itemView.findViewById(R.id.cardPostImage);
 
+            userName = itemView.findViewById(R.id.cardUserName);
+            userAddress = itemView.findViewById(R.id.cardUserAddress);
             imageUserProfile = itemView.findViewById(R.id.cardImageUserProfile);
         }
 
         void bindData(final Post item) {
-            userName.setText(item.getUserName());
             postDate.setText(item.getPostDate());
-            userAddress.setText(item.getUserAddress());
+            postCategory.setText(item.getPostCategory());
             postTitle.setText(item.getPostTitle());
             postDescription.setText(item.getPostDescription());
+            Picasso.with(context).load(item.getPostImage()).into(postImage);
 
+            userName.setText(item.getUserName());
+            userAddress.setText(item.getUserAddress());
             Picasso.with(context).load(item.getUserImageProfile()).into(imageUserProfile);
         }
     }

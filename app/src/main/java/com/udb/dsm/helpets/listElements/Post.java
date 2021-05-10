@@ -9,7 +9,7 @@ public class Post {
     public String userAddress;
     public String postTitle;
     public String postDescription;
-    public String postCategoria;
+    public String postCategory;
     public String postImage;
 
     public String getPostImage() {
@@ -21,17 +21,17 @@ public class Post {
     }
 
 
-    public String getPostCategoria() {
-        return postCategoria;
+    public String getPostCategory() {
+        return postCategory;
     }
 
-    public void setPostCategoria(String postCategoria) {
-        this.postCategoria = postCategoria;
+    public void setPostCategory(String postCategory) {
+        this.postCategory = postCategory;
     }
 
     public Post() {}
 
-    public Post(String userId, String userName, String userImageProfile, String postDate, String userAddress, String postTitle, String postDescription, String postCategoria, String postImage) {
+    public Post(String userId, String userName, String userImageProfile, String postDate, String userAddress, String postTitle, String postDescription, String postCategory, String postImage) {
         this.userId = userId;
         this.userName = userName;
         this.userImageProfile = userImageProfile;
@@ -39,7 +39,7 @@ public class Post {
         this.userAddress = userAddress;
         this.postTitle = postTitle;
         this.postDescription = postDescription;
-        this.postCategoria = postCategoria;
+        this.postCategory = postCategory;
         this.postImage = postImage;
     }
 

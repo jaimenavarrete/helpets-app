@@ -241,7 +241,7 @@ public class CreatePostActivity extends AppCompatActivity {
             p.setPostId(UUID.randomUUID().toString());
             p.setPostDate(Date);
             p.setPostTitle(titulo);
-            p.setPostCategoria(categoria);
+            p.setPostCategory(categoria);
             p.setPostDescription(descripcion);
             p.setPostImage(url);
             p.setUserId(id);
