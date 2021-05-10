@@ -70,6 +70,9 @@ public class MainActivity extends AppCompatActivity {
 
         if(id == R.id.action_add) {
             Toast.makeText(MainActivity.this, "Has hecho click en el botón de agregar publicación", Toast.LENGTH_LONG).show();
+
+            Intent in = new Intent(MainActivity.this, CreatePostActivity.class);
+            startActivity(in);
         }
         else if(id == R.id.action_search) {
             Toast.makeText(MainActivity.this, "Has hecho click en el botón de búsqueda", Toast.LENGTH_LONG).show();

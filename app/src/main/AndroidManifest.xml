@@ -3,6 +3,8 @@
     package="com.udb.dsm.helpets">
     <!-- Permisos de internet -->
     <uses-permission android:name="android.permission.INTERNET" />
+   <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
 
     <application
         android:allowBackup="true"
@@ -20,7 +22,7 @@
             android:name=".UserActivity"
             android:theme="@style/Theme.HelPets.NoActionBar">
 
-        </activity>
+     </activity>
         <activity
             android:name=".SplashScreen"
             android:theme="@style/Theme.HelPets.NoActionBar">
@@ -44,6 +46,14 @@
         <activity
             android:name=".RecoveryActivity"
             android:theme="@style/Theme.HelPets.NoActionBar" />
+        <activity
+            android:name=".CreatePostActivity"
+            android:theme="@style/Theme.HelPets.NoActionBar" >
+            <!--<intent-filter>
+            <action android:name="android.intent.action.MAIN" />
+            <category android:name="android.intent.category.LAUNCHER" />
+        </intent-filter>-->
+        </activity>
     </application>
 
 </manifest>

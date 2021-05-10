@@ -9,10 +9,29 @@ public class Post {
     public String userAddress;
     public String postTitle;
     public String postDescription;
+    public String postCategoria;
+    public String postImage;
+
+    public String getPostImage() {
+        return postImage;
+    }
+
+    public void setPostImage(String postImage) {
+        this.postImage = postImage;
+    }
+
+
+    public String getPostCategoria() {
+        return postCategoria;
+    }
+
+    public void setPostCategoria(String postCategoria) {
+        this.postCategoria = postCategoria;
+    }
 
     public Post() {}
 
-    public Post(String userId, String userName, String userImageProfile, String postDate, String userAddress, String postTitle, String postDescription) {
+    public Post(String userId, String userName, String userImageProfile, String postDate, String userAddress, String postTitle, String postDescription, String postCategoria, String postImage) {
         this.userId = userId;
         this.userName = userName;
         this.userImageProfile = userImageProfile;
@@ -20,6 +39,8 @@ public class Post {
         this.userAddress = userAddress;
         this.postTitle = postTitle;
         this.postDescription = postDescription;
+        this.postCategoria = postCategoria;
+        this.postImage = postImage;
     }
 
     public String getPostId() {
