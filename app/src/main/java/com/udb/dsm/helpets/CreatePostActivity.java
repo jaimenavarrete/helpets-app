@@ -47,7 +47,7 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public class CreatePostActivity extends AppCompatActivity {
-    private EditText etTitulo, etDescripcion;
+    private EditText etTitulo, etDireccion, etDescripcion;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
     private StorageReference myStorage;
@@ -71,9 +71,13 @@ public class CreatePostActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_post);
-        etTitulo = (EditText) findViewById(R.id.etTitulo);
-        etDescripcion = (EditText) findViewById(R.id.etDescripcion);
+
+        etTitulo = findViewById(R.id.etTitulo);
+        etDescripcion = findViewById(R.id.etDescripcion);
+        etDireccion = findViewById(R.id.etDireccion);
+
         til_menu = (TextInputLayout) findViewById(R.id.til_menu);
+
         act_categoria = (AutoCompleteTextView) findViewById(R.id.act_Categoria);
         btnguardar = (Button) findViewById(R.id.buttonCreatePost);
         btnUpload = (Button) findViewById(R.id.buttonImagePost);
@@ -246,7 +250,7 @@ public class CreatePostActivity extends AppCompatActivity {
             p.setPostImage(url);
             p.setUserId(id);
             p.setUserName(uName);
-            p.setUserAddress(uAddress);
+            p.setPostAddress(uAddress);
             p.setUserImageProfile(uImageUrl);
             databaseReference.child("posts").child(p.getPostId()).setValue(p);
             Toast.makeText(this, "Agregado", Toast.LENGTH_LONG).show();

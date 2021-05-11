@@ -393,7 +393,6 @@ public class EditUserActivity extends AppCompatActivity {
 
             for(Post post : posts) {
                 post.setUserName(user.getUserName());
-                post.setUserAddress(user.getUserAddress());
                 pDatabase.child("posts").child(post.getPostId()).setValue(post);
             }
 

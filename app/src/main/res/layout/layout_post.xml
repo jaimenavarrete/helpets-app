@@ -57,7 +57,7 @@
                     android:textSize="14dp" />
 
                 <TextView
-                    android:id="@+id/cardUserAddress"
+                    android:id="@+id/cardPostAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Apopa, San Salvador"

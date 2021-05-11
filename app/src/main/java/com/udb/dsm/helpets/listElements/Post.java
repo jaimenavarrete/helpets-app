@@ -2,41 +2,25 @@ package com.udb.dsm.helpets.listElements;
 
 public class Post {
     public String postId;
-    public String userId;
-    public String userName;
-    public String userImageProfile;
     public String postDate;
-    public String userAddress;
+    public String postAddress;
     public String postTitle;
     public String postDescription;
     public String postCategory;
     public String postImage;
 
-    public String getPostImage() {
-        return postImage;
-    }
-
-    public void setPostImage(String postImage) {
-        this.postImage = postImage;
-    }
-
-
-    public String getPostCategory() {
-        return postCategory;
-    }
-
-    public void setPostCategory(String postCategory) {
-        this.postCategory = postCategory;
-    }
+    public String userId;
+    public String userName;
+    public String userImageProfile;
 
     public Post() {}
 
-    public Post(String userId, String userName, String userImageProfile, String postDate, String userAddress, String postTitle, String postDescription, String postCategory, String postImage) {
+    public Post(String userId, String userName, String userImageProfile, String postDate, String postAddress, String postTitle, String postDescription, String postCategory, String postImage) {
         this.userId = userId;
         this.userName = userName;
         this.userImageProfile = userImageProfile;
         this.postDate = postDate;
-        this.userAddress = userAddress;
+        this.postAddress = postAddress;
         this.postTitle = postTitle;
         this.postDescription = postDescription;
         this.postCategory = postCategory;
@@ -57,6 +41,22 @@ public class Post {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getPostImage() {
+        return postImage;
+    }
+
+    public void setPostImage(String postImage) {
+        this.postImage = postImage;
+    }
+
+    public String getPostCategory() {
+        return postCategory;
+    }
+
+    public void setPostCategory(String postCategory) {
+        this.postCategory = postCategory;
     }
 
     public String getUserName() {
@@ -83,12 +83,12 @@ public class Post {
         this.postDate = postDate;
     }
 
-    public String getUserAddress() {
-        return userAddress;
+    public String getPostAddress() {
+        return postAddress;
     }
 
-    public void setUserAddress(String userAddress) {
-        this.userAddress = userAddress;
+    public void setPostAddress(String postAddress) {
+        this.postAddress = postAddress;
     }
 
     public String getPostTitle() {

@@ -45,7 +45,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView userName, postDate, userAddress, postTitle, postDescription, postCategory;
+        TextView userName, postDate, postAddress, postTitle, postDescription, postCategory;
         ImageView postImage, imageUserProfile;
 
         ViewHolder(View itemView) {
@@ -58,7 +58,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             postImage = itemView.findViewById(R.id.cardPostImage);
 
             userName = itemView.findViewById(R.id.cardUserName);
-            userAddress = itemView.findViewById(R.id.cardUserAddress);
+            postAddress = itemView.findViewById(R.id.cardPostAddress);
             imageUserProfile = itemView.findViewById(R.id.cardImageUserProfile);
         }
 
@@ -70,7 +70,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             Picasso.with(context).load(item.getPostImage()).into(postImage);
 
             userName.setText(item.getUserName());
-            userAddress.setText(item.getUserAddress());
+            postAddress.setText(item.getPostAddress());
             Picasso.with(context).load(item.getUserImageProfile()).into(imageUserProfile);
         }
     }
