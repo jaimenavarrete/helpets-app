@@ -1,14 +1,27 @@
 package com.udb.dsm.helpets.listElements;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.content.res.AppCompatResources;
+import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
 import com.udb.dsm.helpets.R;
 
@@ -19,10 +32,21 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     private LayoutInflater pInflater;
     private Context context;
 
+    private DatabaseReference pDatabaseLikes;
+    private DatabaseReference pDatabasePosts;
+
+    FirebaseUser firebaseUser;
+
+    boolean isLiked = false;
+
     public PostAdapter(List<Post> posts, Context context) {
         this.pInflater = LayoutInflater.from(context);
         this.context = context;
         this.posts = posts;
+
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
+        pDatabaseLikes = FirebaseDatabase.getInstance().getReference().child("likes");
+        pDatabasePosts = FirebaseDatabase.getInstance().getReference().child("posts");
     }
 
     @Override
@@ -38,6 +62,29 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(final PostAdapter.ViewHolder holder, final int position) {
         holder.bindData(posts.get(position));
+
+        setLikes(holder, posts.get(position).getPostId());
+    }
+
+    public void setLikes(final PostAdapter.ViewHolder holder, final String postId) {
+        pDatabaseLikes.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.child(postId).hasChild(firebaseUser.getUid())) {
+                    holder.postLikeButton.setTextColor(Color.parseColor("#F07573"));
+                    holder.postLikeButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.like_icon, 0, 0, 0);
+                }
+                else {
+                    holder.postLikeButton.setTextColor(Color.parseColor("#000000"));
+                    holder.postLikeButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.outline_like_icon, 0, 0, 0);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 
     public void setItems(List<Post> items) {
@@ -45,7 +92,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView userName, postDate, postAddress, postTitle, postDescription, postCategory, postLikes, postComments;
+        Button postLikeButton, postCommentButton;
+        TextView userName, postDate, postAddress, postTitle, postDescription, postCategory;
         ImageView postImage, imageUserProfile;
 
         ViewHolder(View itemView) {
@@ -56,8 +104,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             postTitle = itemView.findViewById(R.id.cardPostTitle);
             postDescription = itemView.findViewById(R.id.cardPostDescription);
             postImage = itemView.findViewById(R.id.cardPostImage);
-            postLikes = itemView.findViewById(R.id.cardLikeButton);
-            postComments = itemView.findViewById(R.id.cardCommentButton);
+            postLikeButton = itemView.findViewById(R.id.cardLikeButton);
+            postCommentButton = itemView.findViewById(R.id.cardCommentButton);
 
             userName = itemView.findViewById(R.id.cardUserName);
             postAddress = itemView.findViewById(R.id.cardPostAddress);
@@ -70,11 +118,42 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             postTitle.setText(item.getPostTitle());
             postDescription.setText(item.getPostDescription());
             Picasso.with(context).load(item.getPostImage()).into(postImage);
-            postLikes.setText(item.getPostLikes() + " Me gusta");
+            postLikeButton.setText(item.getPostLikes() + " Me gusta");
 
             userName.setText(item.getUserName());
             postAddress.setText(item.getPostAddress());
             Picasso.with(context).load(item.getUserImageProfile()).into(imageUserProfile);
+
+            postLikeButton.setOnClickListener(v -> {
+                likeButtonEvent(item);
+            });
         }
+    }
+
+    public void likeButtonEvent(final Post item) {
+        isLiked = true;
+
+        pDatabaseLikes.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(isLiked) {
+                    if(snapshot.child(item.getPostId()).hasChild(firebaseUser.getUid())) {
+                        pDatabasePosts.child(item.getPostId()).child("postLikes").setValue(item.getPostLikes() - 1);
+                        pDatabaseLikes.child(item.getPostId()).child(firebaseUser.getUid()).removeValue();
+                    }
+                    else {
+                        pDatabasePosts.child(item.getPostId()).child("postLikes").setValue(item.getPostLikes() + 1);
+                        pDatabaseLikes.child(item.getPostId()).child(firebaseUser.getUid()).setValue(true);
+                    }
+
+                    isLiked = false;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }

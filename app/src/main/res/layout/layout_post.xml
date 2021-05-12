@@ -145,8 +145,7 @@
                 android:textColor="@color/primary_color"
                 android:textSize="16dp"
                 app:backgroundTint="#FFFFFF"
-                app:icon="@drawable/like_icon"
-                app:iconTint="@color/primary_color" />
+                android:drawableLeft="@drawable/like_icon"/>
 
             <Button
                 android:id="@+id/cardCommentButton"
