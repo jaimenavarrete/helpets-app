@@ -5,17 +5,10 @@
     tools:context="com.udb.dsm.helpets.MainActivity">
 
     <item
-        android:id="@+id/action_add"
-        android:icon="@drawable/add_icon"
+        android:id="@+id/action_return"
+        android:icon="@drawable/return_icon"
         android:orderInCategory="1"
-        android:title="@string/action_create"
-        app:showAsAction="always" />
-
-    <item
-        android:id="@+id/action_search"
-        android:icon="@drawable/search_icon"
-        android:orderInCategory="1"
-        android:title="@string/action_search"
+        android:title="@string/action_return"
         app:showAsAction="always" />
 
     <item

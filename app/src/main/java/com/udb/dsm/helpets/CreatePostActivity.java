@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.format.Time;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -65,12 +67,19 @@ public class CreatePostActivity extends AppCompatActivity {
     ArrayAdapter<String> i;
     String uName, uAddress, uImageUrl;
     private FirebaseUser user;
+    private FirebaseAuth mAuth;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_create_post);
+
+        Toolbar toolbar = findViewById(R.id.createPostToolbar);
+        toolbar.setTitle("Crear publicación");
+        setSupportActionBar(toolbar);
+
+        mAuth = FirebaseAuth.getInstance();
 
         etTitulo = findViewById(R.id.etTitulo);
         etDescripcion = findViewById(R.id.etDescripcion);
@@ -139,6 +148,40 @@ public class CreatePostActivity extends AppCompatActivity {
 
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_create_post, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+
+        if(id == R.id.action_return) {
+            finish();
+        }
+        else if(id == R.id.action_notifications) {
+            Toast.makeText(CreatePostActivity.this, "Has hecho click en el botón de notificaciones", Toast.LENGTH_LONG).show();
+        }
+        else if(id == R.id.action_user) {
+            Intent intent = new Intent(CreatePostActivity.this, UserActivity.class);
+            startActivity(intent);
+
+            finish();
+        }
+        else if(id == R.id.action_logout) {
+            mAuth.signOut();
+
+            Intent i = new Intent(CreatePostActivity.this, LoginActivity.class);
+            startActivity(i);
+
+            finish();
+        }
+
+        return true;
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -200,62 +243,42 @@ public class CreatePostActivity extends AppCompatActivity {
 
         if (user != null){
 
-
             String id = user.getUid();
-            String name = user.getDisplayName();
 
-            String address = user.getEmail();
-          // Uri UserImage = user.getPhotoUrl();
-            
+            Time now =  new Time (Time.getCurrentTimezone());
+            now.setToNow();
+            int dia = now.monthDay;
+            int mes = now.month;
+            int anio = now.year;
+            mes= mes+1;
 
+            String Date = dia + "/" + mes + "/" + anio;
+            String titulo = etTitulo.getText().toString();
+            String categoria = act_categoria.getText().toString();
+            String descripcion = etDescripcion.getText().toString();
+            String url = urlImage.getText().toString();
 
-        /*databaseReference.child("users").child(id).get().addOnCompleteListener(new OnCompleteListener<DataSnapshot>() {
-            @Override
-            public void onComplete(@NonNull Task<DataSnapshot> task) {
-                if (!task.isSuccessful()) {
-                    Log.e("firebase", "Error getting data", task.getException());
-                }
-                else {
-                    Log.d("firebase", String.valueOf(task.getResult().getValue()));
-
-
-                }
-
+            if(titulo.equals("")){ //validacion
+                validacion();
             }
-        });*/
+            else{
+                Post p = new Post();
+                p.setPostId(UUID.randomUUID().toString());
+                p.setPostDate(Date);
+                p.setPostTitle(titulo);
+                p.setPostCategory(categoria);
+                p.setPostDescription(descripcion);
+                p.setPostImage(url);
+                p.setPostAddress(uAddress);
+                p.setPostLikes(0);
+                p.setUserId(id);
+                p.setUserName(uName);
+                p.setUserImageProfile(uImageUrl);
 
-        Time now =  new Time (Time.getCurrentTimezone());
-        now.setToNow();
-        int dia = now.monthDay;
-        int mes = now.month;
-        int anio = now.year;
-        mes= mes+1;
-        String Date = dia + "/" + mes + "/" + anio;
-        String titulo = etTitulo.getText().toString();
-        String categoria = act_categoria.getText().toString();
-        String descripcion = etDescripcion.getText().toString();
-        String url = urlImage.getText().toString();
-
-
-        if(titulo.equals("")){ //validacion
-            validacion();
-        }
-        else{
-            Post p = new Post();
-            p.setPostId(UUID.randomUUID().toString());
-            p.setPostDate(Date);
-            p.setPostTitle(titulo);
-            p.setPostCategory(categoria);
-            p.setPostDescription(descripcion);
-            p.setPostImage(url);
-            p.setUserId(id);
-            p.setUserName(uName);
-            p.setPostAddress(uAddress);
-            p.setUserImageProfile(uImageUrl);
-            databaseReference.child("posts").child(p.getPostId()).setValue(p);
-            Toast.makeText(this, "Agregado", Toast.LENGTH_LONG).show();
-            limpiar();
-        }
+                databaseReference.child("posts").child(p.getPostId()).setValue(p);
+                Toast.makeText(this, "La publicación se ha creado correctamente", Toast.LENGTH_LONG).show();
+                limpiar();
+            }
         }
         else{ Toast.makeText(this, "Usuario no Encontrado", Toast.LENGTH_LONG).show();}
     }
@@ -263,6 +286,7 @@ public class CreatePostActivity extends AppCompatActivity {
 
     private void limpiar() {
         etTitulo.setText("");
+        etDireccion.setText("");
         etDescripcion.setText("");
     }
 

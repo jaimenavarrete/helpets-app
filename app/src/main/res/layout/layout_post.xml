@@ -134,6 +134,7 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/cardLikeButton"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -148,6 +149,7 @@
                 app:iconTint="@color/primary_color" />
 
             <Button
+                android:id="@+id/cardCommentButton"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
