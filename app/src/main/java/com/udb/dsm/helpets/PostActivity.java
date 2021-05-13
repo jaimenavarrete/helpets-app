@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -53,6 +54,7 @@ public class PostActivity extends AppCompatActivity {
 
     String postId = "";
     Post post;
+    boolean isLiked = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +75,8 @@ public class PostActivity extends AppCompatActivity {
 
         initializeElements();
         initializeDatabase();
+
+        getButtonLikeState();
     }
 
     @Override
@@ -149,6 +153,10 @@ public class PostActivity extends AppCompatActivity {
 
         buttonDeletePost.setOnClickListener(v -> {
             buttonDeletePostEvent();
+        });
+
+        likeButton.setOnClickListener(v -> {
+            likeButtonEvent();
         });
 
         likeButton.setText(post.getPostLikes() + " Me gusta");
@@ -240,5 +248,54 @@ public class PostActivity extends AppCompatActivity {
 
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    public void likeButtonEvent() {
+        isLiked = true;
+
+        pDatabaseLikes.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(isLiked) {
+                    if(snapshot.hasChild(firebaseUser.getUid())) {
+                        pDatabasePosts.child("postLikes").setValue(post.getPostLikes() - 1);
+                        pDatabaseLikes.child(firebaseUser.getUid()).removeValue();
+                    }
+                    else {
+                        pDatabasePosts.child("postLikes").setValue(post.getPostLikes() + 1);
+                        pDatabaseLikes.child(firebaseUser.getUid()).setValue(true);
+                    }
+
+                    getButtonLikeState();
+                    isLiked = false;
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
+    }
+
+    public void getButtonLikeState() {
+        pDatabaseLikes.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                if(snapshot.hasChild(firebaseUser.getUid())) {
+                    likeButton.setTextColor(Color.parseColor("#F07573"));
+                    likeButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.like_icon, 0, 0, 0);
+                }
+                else {
+                    likeButton.setTextColor(Color.parseColor("#000000"));
+                    likeButton.setCompoundDrawablesWithIntrinsicBounds(R.drawable.outline_like_icon, 0, 0, 0);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }
