@@ -1,25 +1,37 @@
 package com.udb.dsm.helpets.listElements;
 
+import java.util.HashMap;
+import java.util.List;
+
 public class Post {
     public String postId;
+    public String postDate;
+    public String postAddress;
+    public String postTitle;
+    public String postDescription;
+    public String postCategory;
+    public String postImage;
+    public int postLikes;
+    public int postComments;
+
     public String userId;
     public String userName;
     public String userImageProfile;
-    public String postDate;
-    public String userAddress;
-    public String postTitle;
-    public String postDescription;
 
     public Post() {}
 
-    public Post(String userId, String userName, String userImageProfile, String postDate, String userAddress, String postTitle, String postDescription) {
+    public Post(String userId, String userName, String userImageProfile, String postDate, String postAddress, String postTitle, String postDescription, String postCategory, String postImage, int postLikes, int postComments) {
         this.userId = userId;
         this.userName = userName;
         this.userImageProfile = userImageProfile;
         this.postDate = postDate;
-        this.userAddress = userAddress;
+        this.postAddress = postAddress;
         this.postTitle = postTitle;
         this.postDescription = postDescription;
+        this.postCategory = postCategory;
+        this.postImage = postImage;
+        this.postLikes = postLikes;
+        this.postComments = postComments;
     }
 
     public String getPostId() {
@@ -36,6 +48,22 @@ public class Post {
 
     public void setUserId(String userId) {
         this.userId = userId;
+    }
+
+    public String getPostImage() {
+        return postImage;
+    }
+
+    public void setPostImage(String postImage) {
+        this.postImage = postImage;
+    }
+
+    public String getPostCategory() {
+        return postCategory;
+    }
+
+    public void setPostCategory(String postCategory) {
+        this.postCategory = postCategory;
     }
 
     public String getUserName() {
@@ -62,12 +90,12 @@ public class Post {
         this.postDate = postDate;
     }
 
-    public String getUserAddress() {
-        return userAddress;
+    public String getPostAddress() {
+        return postAddress;
     }
 
-    public void setUserAddress(String userAddress) {
-        this.userAddress = userAddress;
+    public void setPostAddress(String postAddress) {
+        this.postAddress = postAddress;
     }
 
     public String getPostTitle() {
@@ -84,5 +112,21 @@ public class Post {
 
     public void setPostDescription(String postDescription) {
         this.postDescription = postDescription;
+    }
+
+    public int getPostLikes() {
+        return postLikes;
+    }
+
+    public void setPostLikes(int postLikes) {
+        this.postLikes = postLikes;
+    }
+
+    public int getPostComments() {
+        return postComments;
+    }
+
+    public void setPostComments(int postComments) {
+        this.postComments = postComments;
     }
 }

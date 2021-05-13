@@ -22,6 +22,7 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.View;
 
 import android.view.Menu;
@@ -69,7 +70,8 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if(id == R.id.action_add) {
-            Toast.makeText(MainActivity.this, "Has hecho click en el botón de agregar publicación", Toast.LENGTH_LONG).show();
+            Intent intent = new Intent(MainActivity.this, CreatePostActivity.class);
+            startActivity(intent);
         }
         else if(id == R.id.action_search) {
             Toast.makeText(MainActivity.this, "Has hecho click en el botón de búsqueda", Toast.LENGTH_LONG).show();

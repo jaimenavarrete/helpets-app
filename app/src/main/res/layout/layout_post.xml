@@ -12,7 +12,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="433dp"
+        android:layout_height="wrap_content"
         android:elevation="4dp"
 
         android:animateLayoutChanges="true"
@@ -31,9 +31,7 @@
                 android:id="@+id/cardImageUserProfile"
                 android:layout_width="75dp"
                 android:layout_height="75dp"
-                android:layout_marginRight="10dp"
-
-                android:src="@drawable/user_image" />
+                android:layout_marginRight="10dp" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -41,14 +39,59 @@
                 android:layout_gravity="center_vertical"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/cardUserName"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Daniel Calderón"
-                    android:textColor="#212121"
-                    android:textSize="20dp"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal"
+                    >
+                    <TextView
+                        android:id="@+id/cardUserName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Daniel Calderón"
+                        android:textColor="#212121"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+
+                    <LinearLayout
+                        android:id="@+id/cardButtonsSection"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:gravity="end"
+                        >
+
+                        <Button
+                            android:id="@+id/cardButtonEditPost"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center_horizontal"
+                            android:background="@drawable/circular_button"
+
+                            android:paddingStart="10dp"
+                            android:layout_marginEnd="10dp"
+                            app:backgroundTint="#FFFFFF"
+                            app:icon="@drawable/edit_icon"
+                            app:iconTint="@color/secondary_color">
+
+                        </Button>
+
+                        <Button
+                            android:id="@+id/cardButtonDeletePost"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center_horizontal"
+                            android:background="@drawable/circular_button"
+
+                            android:paddingStart="8dp"
+                            app:backgroundTint="#FFFFFF"
+                            app:icon="@drawable/delete_icon"
+                            app:iconTint="@color/secondary_color">
+
+                        </Button>
+
+                    </LinearLayout>
+                </LinearLayout>
 
                 <TextView
                     android:id="@+id/cardPostDate"
@@ -59,7 +102,7 @@
                     android:textSize="14dp" />
 
                 <TextView
-                    android:id="@+id/cardUserAddress"
+                    android:id="@+id/cardPostAddress"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="Apopa, San Salvador"
@@ -69,36 +112,71 @@
             </LinearLayout>
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/cardPostTitle"
+        <LinearLayout
+            android:id="@+id/cardClickableSection"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="vertical"
+            >
+            <TextView
+                android:id="@+id/cardPostTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:paddingHorizontal="10dp"
+                android:text="Título del Post"
+                android:textColor="#212121"
+
+                android:textSize="25dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/cardPostDescription"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="20dp"
+                android:paddingHorizontal="10dp"
+                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor"
+
+                android:textColor="#212121"
+                android:textSize="16dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+
             android:layout_marginBottom="10dp"
-            android:paddingHorizontal="10dp"
-            android:text="Título del Post"
-            android:textColor="#212121"
+            >
 
-            android:textSize="25dp"
-            android:textStyle="bold" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="10dp"
+                android:text="Categoría: "
+                android:textStyle="bold"
 
-        <TextView
-            android:id="@+id/cardPostDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:paddingHorizontal="10dp"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor"
+                android:textColor="#212121"
+                android:textSize="16dp" />
 
-            android:textColor="#212121"
-            android:textSize="16dp" />
+            <TextView
+                android:id="@+id/cardPostCategory"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingHorizontal="10dp"
+                android:text="Categoría: "
+
+                android:textColor="#212121"
+                android:textSize="16dp" />
+
+        </LinearLayout>
 
         <ImageView
             android:id="@+id/cardPostImage"
             android:layout_width="match_parent"
             android:layout_height="175dp"
             android:scaleType="centerCrop"
-
-            android:src="@drawable/post_image"
 
             />
 
@@ -108,6 +186,7 @@
             android:orientation="horizontal">
 
             <Button
+                android:id="@+id/cardLikeButton"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -118,10 +197,10 @@
                 android:textColor="@color/primary_color"
                 android:textSize="16dp"
                 app:backgroundTint="#FFFFFF"
-                app:icon="@drawable/like_icon"
-                app:iconTint="@color/primary_color" />
+                android:drawableLeft="@drawable/like_icon"/>
 
             <Button
+                android:id="@+id/cardCommentButton"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

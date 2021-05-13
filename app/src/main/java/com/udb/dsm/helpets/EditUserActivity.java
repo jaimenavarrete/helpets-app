@@ -35,6 +35,7 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
+import com.udb.dsm.helpets.listElements.Comment;
 import com.udb.dsm.helpets.listElements.Post;
 import com.udb.dsm.helpets.listElements.PostAdapter;
 import com.udb.dsm.helpets.listElements.User;
@@ -46,7 +47,7 @@ import java.util.List;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class EditUserActivity extends AppCompatActivity {
-    DatabaseReference pDatabase;
+    DatabaseReference pDatabaseUsers, pDatabasePosts, pDatabaseComments;
     FirebaseStorage storage;
     StorageReference storageRef;
 
@@ -79,6 +80,7 @@ public class EditUserActivity extends AppCompatActivity {
     User user;
 
     List<Post> posts = new ArrayList<>();
+    List<Comment> comments = new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -215,16 +217,21 @@ public class EditUserActivity extends AppCompatActivity {
 
                     if(uriTask.isSuccessful()) {
                         if(isUserImageProfile) {
-                            pDatabase.child("users").child(firebaseUser.getUid()).child("userImageProfile").setValue(uriDownload.toString());
+                            pDatabaseUsers.child(firebaseUser.getUid()).child("userImageProfile").setValue(uriDownload.toString());
 
                             for(Post post : posts) {
                                 post.setUserImageProfile(uriDownload.toString());
-                                pDatabase.child("posts").child(post.getPostId()).setValue(post);
+                                pDatabasePosts.child(post.getPostId()).setValue(post);
+                            }
+
+                            for(Comment comment : comments) {
+                                comment.setUserImageProfile(uriDownload.toString());
+                                pDatabaseComments.child(comment.getPostId()).child(comment.getCommentId()).setValue(comment);
                             }
                         }
                         else {
-                            pDatabase.child("users").child(firebaseUser.getUid()).child("userImageBackground").setValue("image");
-                            pDatabase.child("users").child(firebaseUser.getUid()).child("userImageBackground").setValue(uriDownload.toString());
+                            pDatabaseUsers.child(firebaseUser.getUid()).child("userImageBackground").setValue("image");
+                            pDatabaseUsers.child(firebaseUser.getUid()).child("userImageBackground").setValue(uriDownload.toString());
                         }
 
                         Snackbar.make(findViewById(android.R.id.content), "Imagen subida correctamente", Snackbar.LENGTH_LONG).show();
@@ -250,9 +257,14 @@ public class EditUserActivity extends AppCompatActivity {
     }
 
     protected void initializeDatabase() {
-        pDatabase = FirebaseDatabase.getInstance().getReference();
-        pDatabase.addValueEventListener(userEvent());
-        pDatabase.addValueEventListener(postListEvent());
+        pDatabaseUsers = FirebaseDatabase.getInstance().getReference().child("users");
+        pDatabaseUsers.addValueEventListener(userEvent());
+
+        pDatabasePosts = FirebaseDatabase.getInstance().getReference().child("posts");
+        pDatabasePosts.addValueEventListener(postListEvent());
+
+        pDatabaseComments = FirebaseDatabase.getInstance().getReference().child("comments");
+        pDatabaseComments.addValueEventListener(commentListEvent());
     }
 
     protected void setInputData() {
@@ -267,7 +279,7 @@ public class EditUserActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 // Get user info
-                user = snapshot.child("users").child(firebaseUser.getUid()).getValue(User.class);
+                user = snapshot.child(firebaseUser.getUid()).getValue(User.class);
                 setInputData();
 
                 Picasso.with(EditUserActivity.this).load(user.getUserImageBackground()).into(imageUserBackground);
@@ -285,11 +297,35 @@ public class EditUserActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 posts.clear();
 
-                for (DataSnapshot productSnapshot : snapshot.child("posts").getChildren()) {
-                    Post post = productSnapshot.getValue(Post.class);
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                    Post post = postSnapshot.getValue(Post.class);
 
                     if(post.getUserId().equals(firebaseUser.getUid())) {
                         posts.add(post);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        };
+    }
+
+    protected ValueEventListener commentListEvent() {
+        return new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                comments.clear();
+
+                for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                    for(DataSnapshot commentSnapshot : postSnapshot.getChildren()) {
+                        Comment comment = commentSnapshot.getValue(Comment.class);
+
+                        if(comment.getUserId().equals(firebaseUser.getUid())) {
+                            comments.add(comment);
+                        }
                     }
                 }
             }
@@ -389,12 +425,16 @@ public class EditUserActivity extends AppCompatActivity {
             user.setUserAddress(address);
 
             Toast.makeText(EditUserActivity.this, "Los datos se han modificado correctamente", Toast.LENGTH_LONG).show();
-            pDatabase.child("users").child(firebaseUser.getUid()).setValue(user);
+            pDatabaseUsers.child(firebaseUser.getUid()).setValue(user);
 
             for(Post post : posts) {
                 post.setUserName(user.getUserName());
-                post.setUserAddress(user.getUserAddress());
-                pDatabase.child("posts").child(post.getPostId()).setValue(post);
+                pDatabasePosts.child(post.getPostId()).setValue(post);
+            }
+
+            for(Comment comment : comments) {
+                comment.setUserName(user.getUserName());
+                pDatabaseComments.child(comment.getPostId()).child(comment.getCommentId()).setValue(comment);
             }
 
         }
