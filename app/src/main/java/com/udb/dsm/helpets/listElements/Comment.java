@@ -7,6 +7,7 @@ public class Comment {
     public String userId;
     public String userImageProfile;
     public String userName;
+    public String postId;
 
     public Comment() {
     }
@@ -66,5 +67,13 @@ public class Comment {
 
     public void setUserName(String userName) {
         this.userName = userName;
+    }
+
+    public String getPostId() {
+        return postId;
+    }
+
+    public void setPostId(String postId) {
+        this.postId = postId;
     }
 }

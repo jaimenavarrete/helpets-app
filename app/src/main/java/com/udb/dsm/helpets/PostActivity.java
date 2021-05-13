@@ -249,7 +249,12 @@ public class PostActivity extends AppCompatActivity {
 
     public void buttonEditPostEvent() {
         Intent intent = new Intent(PostActivity.this, CreatePostActivity.class);
-        intent.putExtra("postId", postId);
+        intent.putExtra("postId", post.getPostId());
+        intent.putExtra("postTitle", post.getPostTitle());
+        intent.putExtra("postAddress", post.getPostAddress());
+        intent.putExtra("postDescription", post.getPostDescription());
+        intent.putExtra("postCategory", post.getPostCategory());
+        intent.putExtra("postImage", post.getPostImage());
         startActivity(intent);
     }
 
@@ -343,6 +348,7 @@ public class PostActivity extends AppCompatActivity {
             comment.setUserId(firebaseUser.getUid());
             comment.setUserName(user.getUserName());
             comment.setUserImageProfile(user.getUserImageProfile());
+            comment.setPostId(postId);
 
             pDatabaseComments.child(comment.getCommentId()).setValue(comment);
             pDatabasePosts.child("postComments").setValue(post.getPostComments() + 1);
