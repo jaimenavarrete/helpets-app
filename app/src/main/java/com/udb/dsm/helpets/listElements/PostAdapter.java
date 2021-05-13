@@ -1,6 +1,7 @@
 package com.udb.dsm.helpets.listElements;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
@@ -11,8 +12,11 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.content.res.AppCompatResources;
 import androidx.core.graphics.drawable.DrawableCompat;
 import androidx.recyclerview.widget.RecyclerView;
@@ -25,6 +29,8 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+import com.udb.dsm.helpets.CreatePostActivity;
+import com.udb.dsm.helpets.MainActivity;
 import com.udb.dsm.helpets.PostActivity;
 import com.udb.dsm.helpets.R;
 
@@ -95,10 +101,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     }
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        Button postLikeButton, postCommentButton;
+        Button buttonEditPost, buttonDeletePost, postLikeButton, postCommentButton;
         TextView userName, postDate, postAddress, postTitle, postDescription, postCategory;
         ImageView postImage, imageUserProfile;
-        LinearLayout clickableSection;
+        LinearLayout clickableSection, buttonsSection;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -115,6 +121,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             postAddress = itemView.findViewById(R.id.cardPostAddress);
             imageUserProfile = itemView.findViewById(R.id.cardImageUserProfile);
 
+            buttonsSection = itemView.findViewById(R.id.cardButtonsSection);
+            buttonEditPost = itemView.findViewById(R.id.cardButtonEditPost);
+            buttonDeletePost = itemView.findViewById(R.id.cardButtonDeletePost);
+
             clickableSection = itemView.findViewById(R.id.cardClickableSection);
         }
 
@@ -125,6 +135,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             postDescription.setText(item.getPostDescription());
             Picasso.with(context).load(item.getPostImage()).into(postImage);
             postLikeButton.setText(item.getPostLikes() + " Me gusta");
+            postCommentButton.setText(item.getPostComments() + " Comentarios");
 
             userName.setText(item.getUserName());
             postAddress.setText(item.getPostAddress());
@@ -134,10 +145,63 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 likeButtonEvent(item);
             });
 
+            postCommentButton.setOnClickListener(v -> {
+                clickableSectionEvent(item);
+            });
+
+            buttonEditPost.setOnClickListener(v -> {
+                buttonEditPostEvent(item);
+            });
+
+            buttonDeletePost.setOnClickListener(v -> {
+                buttonDeletePostEvent(item);
+            });
+
             clickableSection.setOnClickListener(v -> {
                 clickableSectionEvent(item);
             });
+
+            if(!item.getUserId().equals(firebaseUser.getUid())) {
+                buttonsSection.setVisibility(View.GONE);
+            }
         }
+    }
+
+    public void buttonEditPostEvent(final Post item) {
+        Intent intent = new Intent(context, CreatePostActivity.class);
+        intent.putExtra("postId", item.getPostId());
+        context.startActivity(intent);
+    }
+
+    public void buttonDeletePostEvent(final Post item) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+
+        builder.setMessage("¿Está seguro de eliminar esta publicación?").setTitle("Confirmación");
+
+        builder.setPositiveButton("Eliminar", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                try {
+                    pDatabasePosts.child(item.getPostId()).removeValue();
+                    pDatabaseLikes.child(item.getPostId()).removeValue();
+
+                    Toast.makeText(context, "La publicación ha sido eliminada correctamente", Toast.LENGTH_LONG).show();
+
+                    Intent intent = new Intent(context, MainActivity.class);
+                    context.startActivity(intent);
+
+                    ((AppCompatActivity)context).finish();
+                }
+                catch (Exception e){
+                    Toast.makeText(context, "Hubo un error al eliminar la publicación. Inténtelo más tarde", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {}
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 
     public void likeButtonEvent(final Post item) {

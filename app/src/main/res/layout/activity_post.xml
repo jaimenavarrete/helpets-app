@@ -67,14 +67,59 @@
                             android:layout_gravity="center_vertical"
                             android:orientation="vertical">
 
-                            <TextView
-                                android:id="@+id/userName"
+                            <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="Daniel Calderón"
-                                android:textColor="#212121"
-                                android:textSize="20dp"
-                                android:textStyle="bold" />
+                                android:orientation="horizontal"
+                                >
+                                <TextView
+                                    android:id="@+id/userName"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:text="Daniel Calderón"
+                                    android:textColor="#212121"
+                                    android:textSize="20dp"
+                                    android:textStyle="bold" />
+
+                                <LinearLayout
+                                    android:id="@+id/buttonsSection"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:orientation="horizontal"
+                                    android:gravity="end"
+                                    >
+
+                                    <Button
+                                        android:id="@+id/buttonEditPost"
+                                        android:layout_width="40dp"
+                                        android:layout_height="40dp"
+                                        android:layout_gravity="center_horizontal"
+                                        android:background="@drawable/circular_button"
+
+                                        android:paddingStart="10dp"
+                                        android:layout_marginEnd="10dp"
+                                        app:backgroundTint="#FFFFFF"
+                                        app:icon="@drawable/edit_icon"
+                                        app:iconTint="@color/secondary_color">
+
+                                    </Button>
+
+                                    <Button
+                                        android:id="@+id/buttonDeletePost"
+                                        android:layout_width="40dp"
+                                        android:layout_height="40dp"
+                                        android:layout_gravity="center_horizontal"
+                                        android:background="@drawable/circular_button"
+
+                                        android:paddingStart="8dp"
+                                        app:backgroundTint="#FFFFFF"
+                                        app:icon="@drawable/delete_icon"
+                                        app:iconTint="@color/secondary_color">
+
+                                    </Button>
+
+                                </LinearLayout>
+                            </LinearLayout>
 
                             <TextView
                                 android:id="@+id/postDate"

@@ -81,6 +81,10 @@ public class CommentAdapter extends RecyclerView.Adapter<CommentAdapter.ViewHold
             userName.setText(item.getUserName());
             commentDate.setText(item.getCommentDate());
             commentText.setText(item.getCommentText());
+
+            if(!item.getUserId().equals(firebaseUser.getUid())) {
+                buttonsSection.setVisibility(View.GONE);
+            }
         }
     }
 

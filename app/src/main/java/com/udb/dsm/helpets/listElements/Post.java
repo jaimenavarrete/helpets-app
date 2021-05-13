@@ -12,6 +12,7 @@ public class Post {
     public String postCategory;
     public String postImage;
     public int postLikes;
+    public int postComments;
 
     public String userId;
     public String userName;
@@ -19,7 +20,7 @@ public class Post {
 
     public Post() {}
 
-    public Post(String userId, String userName, String userImageProfile, String postDate, String postAddress, String postTitle, String postDescription, String postCategory, String postImage, int postLikes) {
+    public Post(String userId, String userName, String userImageProfile, String postDate, String postAddress, String postTitle, String postDescription, String postCategory, String postImage, int postLikes, int postComments) {
         this.userId = userId;
         this.userName = userName;
         this.userImageProfile = userImageProfile;
@@ -30,6 +31,7 @@ public class Post {
         this.postCategory = postCategory;
         this.postImage = postImage;
         this.postLikes = postLikes;
+        this.postComments = postComments;
     }
 
     public String getPostId() {
@@ -118,5 +120,13 @@ public class Post {
 
     public void setPostLikes(int postLikes) {
         this.postLikes = postLikes;
+    }
+
+    public int getPostComments() {
+        return postComments;
+    }
+
+    public void setPostComments(int postComments) {
+        this.postComments = postComments;
     }
 }

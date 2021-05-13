@@ -49,26 +49,34 @@ import java.util.ArrayList;
 import java.util.UUID;
 
 public class CreatePostActivity extends AppCompatActivity {
-    private EditText etTitulo, etDireccion, etDescripcion;
     private FirebaseDatabase firebaseDatabase;
     private DatabaseReference databaseReference;
     private StorageReference myStorage;
+
+    private EditText etTitulo, etDireccion, etDescripcion;
+
     private Button btnguardar, btnUpload;
+
     private AutoCompleteTextView act_categoria;
     private TextInputLayout til_menu;
+
     private static  final int Galery_intent = 1;
     private ImageView myImageView;
     private ProgressDialog myProgressDialog;
     private TextView urlImage;
+
     private  User users;
+
     private ValueEventListener eventListener;
     private DatabaseReference UserData;
+
     ArrayList<String> menu;
     ArrayAdapter<String> i;
+
     String uName, uAddress, uImageUrl;
+
     private FirebaseUser user;
     private FirebaseAuth mAuth;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -79,7 +87,14 @@ public class CreatePostActivity extends AppCompatActivity {
         toolbar.setTitle("Crear publicación");
         setSupportActionBar(toolbar);
 
+//        Bundle bundle = getIntent().getExtras();
+//        if(bundle != null) {
+//
+//        }
+
         mAuth = FirebaseAuth.getInstance();
+
+        user = FirebaseAuth.getInstance().getCurrentUser();
 
         etTitulo = findViewById(R.id.etTitulo);
         etDescripcion = findViewById(R.id.etDescripcion);
@@ -88,6 +103,7 @@ public class CreatePostActivity extends AppCompatActivity {
         til_menu = (TextInputLayout) findViewById(R.id.til_menu);
 
         act_categoria = (AutoCompleteTextView) findViewById(R.id.act_Categoria);
+
         btnguardar = (Button) findViewById(R.id.buttonCreatePost);
         btnUpload = (Button) findViewById(R.id.buttonImagePost);
         myImageView = (ImageView) findViewById(R.id.imagePost);
@@ -104,9 +120,6 @@ public class CreatePostActivity extends AppCompatActivity {
         act_categoria.setThreshold(1);
         inicializarFirebase();
         iniciarStorage();
-
-        user = FirebaseAuth.getInstance().getCurrentUser();
-
 
         UserData = FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid());
 
@@ -235,8 +248,6 @@ public class CreatePostActivity extends AppCompatActivity {
         firebaseDatabase = FirebaseDatabase.getInstance();
         databaseReference = firebaseDatabase.getReference();
     }
-
-
 
     private void guardar() {
 

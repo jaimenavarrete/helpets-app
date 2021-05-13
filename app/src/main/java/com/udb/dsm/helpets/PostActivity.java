@@ -1,15 +1,18 @@
 package com.udb.dsm.helpets;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -17,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -34,15 +38,18 @@ import java.util.List;
 public class PostActivity extends AppCompatActivity {
     DatabaseReference pDatabasePosts;
     DatabaseReference pDatabaseComments;
+    DatabaseReference pDatabaseLikes;
 
     RecyclerView recyclerViewComments;
     List<Comment> comments = new ArrayList<>();
 
+    FirebaseUser firebaseUser;
     private FirebaseAuth mAuth;
 
     TextView userName, postDate, postAddress, postTitle, postDescription, postCategory;
     ImageView imageUserProfile, imagePost;
-    Button likeButton, commentButton;
+    Button buttonEditPost, buttonDeletePost, likeButton, commentButton;
+    LinearLayout buttonsSection;
 
     String postId = "";
     Post post;
@@ -61,6 +68,7 @@ public class PostActivity extends AppCompatActivity {
             postId = bundle.getString("postId");
         }
 
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         mAuth = FirebaseAuth.getInstance();
 
         initializeElements();
@@ -112,6 +120,10 @@ public class PostActivity extends AppCompatActivity {
         imageUserProfile = findViewById(R.id.imageUserProfile);
         imagePost = findViewById(R.id.imagePost);
 
+        buttonsSection = findViewById(R.id.buttonsSection);
+        buttonEditPost = findViewById(R.id.buttonEditPost);
+        buttonDeletePost = findViewById(R.id.buttonDeletePost);
+
         likeButton = findViewById(R.id.likeButton);
         commentButton = findViewById(R.id.commentButton);
 
@@ -129,16 +141,29 @@ public class PostActivity extends AppCompatActivity {
         postCategory.setText(post.getPostCategory());
 
         Picasso.with(PostActivity.this).load(post.getUserImageProfile()).into(imageUserProfile);
-
         Picasso.with(PostActivity.this).load(post.getPostImage()).into(imagePost);
 
+        buttonEditPost.setOnClickListener(v -> {
+            buttonEditPostEvent();
+        });
+
+        buttonDeletePost.setOnClickListener(v -> {
+            buttonDeletePostEvent();
+        });
+
         likeButton.setText(post.getPostLikes() + " Me gusta");
-        commentButton.setText(comments.size() + " Comentarios");
+        commentButton.setText(post.getPostComments() + " Comentarios");
+
+        if(!post.getUserId().equals(firebaseUser.getUid())) {
+            buttonsSection.setVisibility(View.GONE);
+        }
     }
 
     public void initializeDatabase() {
         pDatabasePosts = FirebaseDatabase.getInstance().getReference().child("posts").child(postId);
         pDatabasePosts.addValueEventListener(postListEvent());
+
+        pDatabaseLikes = FirebaseDatabase.getInstance().getReference().child("likes").child(postId);
 
         pDatabaseComments = FirebaseDatabase.getInstance().getReference().child("comments").child(postId);
         pDatabaseComments.addValueEventListener(commentListEvent());
@@ -180,5 +205,40 @@ public class PostActivity extends AppCompatActivity {
 
             }
         };
+    }
+
+    public void buttonEditPostEvent() {
+        Intent intent = new Intent(PostActivity.this, CreatePostActivity.class);
+        intent.putExtra("postId", postId);
+        startActivity(intent);
+    }
+
+    public void buttonDeletePostEvent() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(PostActivity.this);
+
+        builder.setMessage("¿Está seguro de eliminar esta publicación?").setTitle("Confirmación");
+
+        builder.setPositiveButton("Eliminar", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                try {
+                    pDatabasePosts.removeValue();
+                    pDatabaseComments.removeValue();
+                    pDatabaseLikes.removeValue();
+
+                    Toast.makeText(PostActivity.this, "La publicación ha sido eliminada correctamente", Toast.LENGTH_LONG).show();
+
+                    finish();
+                }
+                catch (Exception e){
+                    Toast.makeText(PostActivity.this, "Hubo un error al eliminar la publicación. Inténtelo más tarde", Toast.LENGTH_LONG).show();
+                }
+            }
+        });
+        builder.setNegativeButton("Cancelar", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {}
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }
