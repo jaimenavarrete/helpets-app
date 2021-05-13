@@ -41,6 +41,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.squareup.picasso.Picasso;
 import com.udb.dsm.helpets.listElements.Post;
 import com.udb.dsm.helpets.listElements.User;
 
@@ -51,9 +52,8 @@ import java.util.Calendar;
 import java.util.UUID;
 
 public class CreatePostActivity extends AppCompatActivity {
-    private FirebaseDatabase firebaseDatabase;
-    private DatabaseReference databaseReference;
     private StorageReference myStorage;
+    private DatabaseReference pDatabaseUser, pDatabasePost;
 
     private EditText etTitulo, etDireccion, etDescripcion;
 
@@ -70,15 +70,19 @@ public class CreatePostActivity extends AppCompatActivity {
     private  User users;
 
     private ValueEventListener eventListener;
-    private DatabaseReference UserData;
+
 
     ArrayList<String> menu;
     ArrayAdapter<String> i;
 
-    String uName, uAddress, uImageUrl;
+    String uName, uImageUrl;
 
-    private FirebaseUser user;
+    private FirebaseUser firebaseUser;
     private FirebaseAuth mAuth;
+
+    private boolean isEdit;
+    private Post post;
+    private String postId, postTitle, postAddress, postDescription, postCategory, postImage;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -89,13 +93,20 @@ public class CreatePostActivity extends AppCompatActivity {
         toolbar.setTitle("Crear publicación");
         setSupportActionBar(toolbar);
 
-//        Bundle bundle = getIntent().getExtras();
-//        if(bundle != null) {
-//
-//        }
+        Bundle bundle = getIntent().getExtras();
+        if(bundle != null) {
+            isEdit = true;
+
+            postId = bundle.getString("postId");
+            postTitle = bundle.getString("postTitle");
+            postAddress = bundle.getString("postAddress");
+            postDescription = bundle.getString("postDescription");
+            postCategory = bundle.getString("postCategory");
+            postImage = bundle.getString("postImage");
+        }
 
         mAuth = FirebaseAuth.getInstance();
-        user = FirebaseAuth.getInstance().getCurrentUser();
+        firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
 
         etTitulo = findViewById(R.id.etTitulo);
         etDescripcion = findViewById(R.id.etDescripcion);
@@ -120,24 +131,20 @@ public class CreatePostActivity extends AppCompatActivity {
         act_categoria.setAdapter(i);
         act_categoria.setThreshold(1);
 
-        inicializarFirebase();
-        iniciarStorage();
+        if(isEdit) {
+            etTitulo.setText(postTitle);
+            etDescripcion.setText(postDescription);
+            etDireccion.setText(postAddress);
+            act_categoria.setText(postCategory, false);
 
-        UserData = FirebaseDatabase.getInstance().getReference().child("users").child(user.getUid());
+            Picasso.with(CreatePostActivity.this).load(postImage).into(myImageView);
+            urlImage.setText(postImage);
 
-        eventListener = new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                uName = snapshot.child("userName").getValue().toString();
-                uImageUrl = snapshot.child("userImageProfile").getValue().toString();
-            }
+            btnguardar.setText("Editar publicación");
+        }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        };
-
-        UserData.addValueEventListener(eventListener);
+        initializeDatabase();
+        initializeStorage();
 
         btnUpload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -192,6 +199,45 @@ public class CreatePostActivity extends AppCompatActivity {
         return true;
     }
 
+    private void initializeDatabase() {
+        pDatabaseUser = FirebaseDatabase.getInstance().getReference().child("users");
+        pDatabaseUser.addValueEventListener(userEvent());
+
+        pDatabasePost = FirebaseDatabase.getInstance().getReference().child("posts");
+        if(isEdit) {
+            pDatabasePost.addValueEventListener(postEvent());
+        }
+    }
+
+    public ValueEventListener userEvent() {
+        return new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                uName = snapshot.child(firebaseUser.getUid()).child("userName").getValue().toString();
+                uImageUrl = snapshot.child(firebaseUser.getUid()).child("userImageProfile").getValue().toString();
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+        };
+    }
+
+    public ValueEventListener postEvent() {
+        return new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                post = snapshot.child(postId).getValue(Post.class);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+        };
+    }
+
+
+    private void initializeStorage() {
+        myStorage = FirebaseStorage.getInstance().getReference();
+    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
@@ -231,59 +277,48 @@ public class CreatePostActivity extends AppCompatActivity {
                     Toast.makeText(CreatePostActivity.this, "Imagen Cargada", Toast.LENGTH_SHORT).show();
                 }
             });
-
-
         }
-    }
-
-    private void iniciarStorage() {
-        myStorage = FirebaseStorage.getInstance().getReference();
-    }
-
-    private void inicializarFirebase() {
-        FirebaseApp.initializeApp(this);
-        firebaseDatabase = FirebaseDatabase.getInstance();
-        databaseReference = firebaseDatabase.getReference();
     }
 
     private void guardar() {
-        if (user != null){
+        if (firebaseUser != null){
 
-            String id = user.getUid();
+            if(!isEdit) {
+                String dateFormat = "dd/MM/yyyy HH:mm:ss";
+                String postDate = new SimpleDateFormat(dateFormat).format(Calendar.getInstance().getTime());
 
-            String dateFormat = "dd/MM/yyyy HH:mm:ss";
-            String Date = new SimpleDateFormat(dateFormat).format(Calendar.getInstance().getTime());
+                Post newPost = new Post();
+                newPost.setPostId(UUID.randomUUID().toString());
+                newPost.setPostDate(postDate);
+                newPost.setPostTitle(etTitulo.getText().toString());
+                newPost.setPostCategory(act_categoria.getText().toString());
+                newPost.setPostDescription(etDescripcion.getText().toString());
+                newPost.setPostImage(urlImage.getText().toString());
+                newPost.setPostAddress(etDireccion.getText().toString());
+                newPost.setPostLikes(0);
+                newPost.setPostComments(0);
+                newPost.setUserId(firebaseUser.getUid());
+                newPost.setUserName(uName);
+                newPost.setUserImageProfile(uImageUrl);
 
-            String titulo = etTitulo.getText().toString();
-            String direccion = etDireccion.getText().toString();
-            String categoria = act_categoria.getText().toString();
-            String descripcion = etDescripcion.getText().toString();
-            String url = urlImage.getText().toString();
+                pDatabasePost.child(newPost.getPostId()).setValue(newPost);
+                Toast.makeText(this, "La publicación se ha creado correctamente", Toast.LENGTH_LONG).show();
+            }
+            else {
+                post.setPostTitle(etTitulo.getText().toString());
+                post.setPostCategory(act_categoria.getText().toString());
+                post.setPostDescription(etDescripcion.getText().toString());
+                post.setPostImage(urlImage.getText().toString());
+                post.setPostAddress(etDireccion.getText().toString());
 
-            Post post = new Post();
-            post.setPostId(UUID.randomUUID().toString());
-            post.setPostDate(Date);
-            post.setPostTitle(titulo);
-            post.setPostCategory(categoria);
-            post.setPostDescription(descripcion);
-            post.setPostImage(url);
-            post.setPostAddress(direccion);
-            post.setPostLikes(0);
-            post.setPostComments(0);
-            post.setUserId(id);
-            post.setUserName(uName);
-            post.setUserImageProfile(uImageUrl);
+                pDatabasePost.child(post.getPostId()).setValue(post);
+                Toast.makeText(this, "La publicación se ha editado correctamente", Toast.LENGTH_LONG).show();
+            }
 
-            databaseReference.child("posts").child(post.getPostId()).setValue(post);
-            Toast.makeText(this, "La publicación se ha creado correctamente", Toast.LENGTH_LONG).show();
-            limpiar();
+            finish();
         }
-        else{ Toast.makeText(this, "Usuario no encontrado", Toast.LENGTH_LONG).show();}
-    }
-
-    private void limpiar() {
-        etTitulo.setText("");
-        etDireccion.setText("");
-        etDescripcion.setText("");
+        else {
+            Toast.makeText(this, "Usuario no encontrado", Toast.LENGTH_LONG).show();
+        }
     }
 }

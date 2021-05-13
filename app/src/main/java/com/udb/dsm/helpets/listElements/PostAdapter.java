@@ -170,6 +170,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     public void buttonEditPostEvent(final Post item) {
         Intent intent = new Intent(context, CreatePostActivity.class);
         intent.putExtra("postId", item.getPostId());
+        intent.putExtra("postTitle", item.getPostTitle());
+        intent.putExtra("postAddress", item.getPostAddress());
+        intent.putExtra("postDescription", item.getPostDescription());
+        intent.putExtra("postCategory", item.getPostCategory());
+        intent.putExtra("postImage", item.getPostImage());
         context.startActivity(intent);
     }
 
