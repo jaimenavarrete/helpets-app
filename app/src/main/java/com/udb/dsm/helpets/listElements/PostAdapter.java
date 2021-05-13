@@ -1,6 +1,7 @@
 package com.udb.dsm.helpets.listElements;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -8,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -23,6 +25,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.squareup.picasso.Picasso;
+import com.udb.dsm.helpets.PostActivity;
 import com.udb.dsm.helpets.R;
 
 import java.util.List;
@@ -95,6 +98,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         Button postLikeButton, postCommentButton;
         TextView userName, postDate, postAddress, postTitle, postDescription, postCategory;
         ImageView postImage, imageUserProfile;
+        LinearLayout clickableSection;
 
         ViewHolder(View itemView) {
             super(itemView);
@@ -110,6 +114,8 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
             userName = itemView.findViewById(R.id.cardUserName);
             postAddress = itemView.findViewById(R.id.cardPostAddress);
             imageUserProfile = itemView.findViewById(R.id.cardImageUserProfile);
+
+            clickableSection = itemView.findViewById(R.id.cardClickableSection);
         }
 
         void bindData(final Post item) {
@@ -126,6 +132,10 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
             postLikeButton.setOnClickListener(v -> {
                 likeButtonEvent(item);
+            });
+
+            clickableSection.setOnClickListener(v -> {
+                clickableSectionEvent(item);
             });
         }
     }
@@ -155,5 +165,11 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
             }
         });
+    }
+
+    public void clickableSectionEvent(final Post item) {
+        Intent intent = new Intent(context, PostActivity.class);
+        intent.putExtra("postId", item.getPostId());
+        context.startActivity(intent);
     }
 }

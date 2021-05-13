@@ -70,8 +70,8 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
 
         if(id == R.id.action_add) {
-            Intent in = new Intent(MainActivity.this, CreatePostActivity.class);
-            startActivity(in);
+            Intent intent = new Intent(MainActivity.this, CreatePostActivity.class);
+            startActivity(intent);
         }
         else if(id == R.id.action_search) {
             Toast.makeText(MainActivity.this, "Has hecho click en el botón de búsqueda", Toast.LENGTH_LONG).show();
