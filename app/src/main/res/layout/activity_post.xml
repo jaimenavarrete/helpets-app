@@ -293,7 +293,8 @@
                         android:layout_weight="1"
 
                         app:startIconDrawable="@drawable/comment_icon"
-                        app:startIconTint="@color/black">
+                        app:startIconTint="@color/black"
+                        app:endIconMode="clear_text">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/editTextComment"

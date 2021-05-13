@@ -45,7 +45,9 @@ import com.udb.dsm.helpets.listElements.Post;
 import com.udb.dsm.helpets.listElements.User;
 
 import java.lang.reflect.Array;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.UUID;
 
 public class CreatePostActivity extends AppCompatActivity {
@@ -93,7 +95,6 @@ public class CreatePostActivity extends AppCompatActivity {
 //        }
 
         mAuth = FirebaseAuth.getInstance();
-
         user = FirebaseAuth.getInstance().getCurrentUser();
 
         etTitulo = findViewById(R.id.etTitulo);
@@ -101,11 +102,11 @@ public class CreatePostActivity extends AppCompatActivity {
         etDireccion = findViewById(R.id.etDireccion);
 
         til_menu = (TextInputLayout) findViewById(R.id.til_menu);
-
         act_categoria = (AutoCompleteTextView) findViewById(R.id.act_Categoria);
 
         btnguardar = (Button) findViewById(R.id.buttonCreatePost);
         btnUpload = (Button) findViewById(R.id.buttonImagePost);
+
         myImageView = (ImageView) findViewById(R.id.imagePost);
         myProgressDialog = new ProgressDialog(this);
         urlImage = (TextView) findViewById(R.id.txtUrlImage);
@@ -118,6 +119,7 @@ public class CreatePostActivity extends AppCompatActivity {
         i = new ArrayAdapter<>(getApplicationContext(), R.layout.support_simple_spinner_dropdown_item, menu);
         act_categoria.setAdapter(i);
         act_categoria.setThreshold(1);
+
         inicializarFirebase();
         iniciarStorage();
 
@@ -126,11 +128,8 @@ public class CreatePostActivity extends AppCompatActivity {
         eventListener = new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-
-                    uName = snapshot.child("userName").getValue().toString();
-                    uAddress = snapshot.child("userAddress").getValue().toString();
-                    uImageUrl = snapshot.child("userImageProfile").getValue().toString();
-
+                uName = snapshot.child("userName").getValue().toString();
+                uImageUrl = snapshot.child("userImageProfile").getValue().toString();
             }
 
             @Override
@@ -139,8 +138,6 @@ public class CreatePostActivity extends AppCompatActivity {
         };
 
         UserData.addValueEventListener(eventListener);
-
-
 
         btnUpload.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -250,58 +247,43 @@ public class CreatePostActivity extends AppCompatActivity {
     }
 
     private void guardar() {
-
-
         if (user != null){
 
             String id = user.getUid();
 
-            Time now =  new Time (Time.getCurrentTimezone());
-            now.setToNow();
-            int dia = now.monthDay;
-            int mes = now.month;
-            int anio = now.year;
-            mes= mes+1;
+            String dateFormat = "dd/MM/yyyy HH:mm:ss";
+            String Date = new SimpleDateFormat(dateFormat).format(Calendar.getInstance().getTime());
 
-            String Date = dia + "/" + mes + "/" + anio;
             String titulo = etTitulo.getText().toString();
+            String direccion = etDireccion.getText().toString();
             String categoria = act_categoria.getText().toString();
             String descripcion = etDescripcion.getText().toString();
             String url = urlImage.getText().toString();
 
-            if(titulo.equals("")){ //validacion
-                validacion();
-            }
-            else{
-                Post p = new Post();
-                p.setPostId(UUID.randomUUID().toString());
-                p.setPostDate(Date);
-                p.setPostTitle(titulo);
-                p.setPostCategory(categoria);
-                p.setPostDescription(descripcion);
-                p.setPostImage(url);
-                p.setPostAddress(uAddress);
-                p.setPostLikes(0);
-                p.setUserId(id);
-                p.setUserName(uName);
-                p.setUserImageProfile(uImageUrl);
+            Post post = new Post();
+            post.setPostId(UUID.randomUUID().toString());
+            post.setPostDate(Date);
+            post.setPostTitle(titulo);
+            post.setPostCategory(categoria);
+            post.setPostDescription(descripcion);
+            post.setPostImage(url);
+            post.setPostAddress(direccion);
+            post.setPostLikes(0);
+            post.setPostComments(0);
+            post.setUserId(id);
+            post.setUserName(uName);
+            post.setUserImageProfile(uImageUrl);
 
-                databaseReference.child("posts").child(p.getPostId()).setValue(p);
-                Toast.makeText(this, "La publicación se ha creado correctamente", Toast.LENGTH_LONG).show();
-                limpiar();
-            }
+            databaseReference.child("posts").child(post.getPostId()).setValue(post);
+            Toast.makeText(this, "La publicación se ha creado correctamente", Toast.LENGTH_LONG).show();
+            limpiar();
         }
-        else{ Toast.makeText(this, "Usuario no Encontrado", Toast.LENGTH_LONG).show();}
+        else{ Toast.makeText(this, "Usuario no encontrado", Toast.LENGTH_LONG).show();}
     }
-
 
     private void limpiar() {
         etTitulo.setText("");
         etDireccion.setText("");
         etDescripcion.setText("");
     }
-
-    private void validacion() {
-    }
-
 }

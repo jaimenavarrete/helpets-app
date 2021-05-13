@@ -210,9 +210,12 @@ public class PostActivity extends AppCompatActivity {
         return new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                post = snapshot.getValue(Post.class);
+                try {
+                    post = snapshot.getValue(Post.class);
 
-                defineElements();
+                    defineElements();
+                }
+                catch(Exception ignore) {}
             }
 
             @Override
@@ -233,7 +236,7 @@ public class PostActivity extends AppCompatActivity {
                     comments.add(comment);
                 }
 
-                CommentAdapter listCommentAdapter = new CommentAdapter(comments, PostActivity.this);
+                CommentAdapter listCommentAdapter = new CommentAdapter(comments, PostActivity.this, postId);
                 recyclerViewComments.setAdapter(listCommentAdapter);
             }
 
