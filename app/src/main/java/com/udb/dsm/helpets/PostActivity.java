@@ -15,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -32,24 +33,29 @@ import com.udb.dsm.helpets.listElements.Comment;
 import com.udb.dsm.helpets.listElements.CommentAdapter;
 import com.udb.dsm.helpets.listElements.Post;
 import com.udb.dsm.helpets.listElements.PostAdapter;
+import com.udb.dsm.helpets.listElements.User;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 public class PostActivity extends AppCompatActivity {
-    DatabaseReference pDatabasePosts;
-    DatabaseReference pDatabaseComments;
-    DatabaseReference pDatabaseLikes;
+    DatabaseReference pDatabaseUsers, pDatabasePosts, pDatabaseComments, pDatabaseLikes;
 
     RecyclerView recyclerViewComments;
     List<Comment> comments = new ArrayList<>();
 
     FirebaseUser firebaseUser;
     private FirebaseAuth mAuth;
+    User user;
 
     TextView userName, postDate, postAddress, postTitle, postDescription, postCategory;
+    EditText editTextComment;
     ImageView imageUserProfile, imagePost;
-    Button buttonEditPost, buttonDeletePost, likeButton, commentButton;
+    Button buttonEditPost, buttonDeletePost, likeButton, commentButton, buttonAddComment;
     LinearLayout buttonsSection;
 
     String postId = "";
@@ -121,12 +127,15 @@ public class PostActivity extends AppCompatActivity {
         postDescription = findViewById(R.id.postDescription);
         postCategory = findViewById(R.id.postCategory);
 
+        editTextComment = findViewById(R.id.editTextComment);
+
         imageUserProfile = findViewById(R.id.imageUserProfile);
         imagePost = findViewById(R.id.imagePost);
 
         buttonsSection = findViewById(R.id.buttonsSection);
         buttonEditPost = findViewById(R.id.buttonEditPost);
         buttonDeletePost = findViewById(R.id.buttonDeletePost);
+        buttonAddComment = findViewById(R.id.buttonAddComment);
 
         likeButton = findViewById(R.id.likeButton);
         commentButton = findViewById(R.id.commentButton);
@@ -159,6 +168,10 @@ public class PostActivity extends AppCompatActivity {
             likeButtonEvent();
         });
 
+        buttonAddComment.setOnClickListener(v -> {
+            buttonAddCommentEvent();
+        });
+
         likeButton.setText(post.getPostLikes() + " Me gusta");
         commentButton.setText(post.getPostComments() + " Comentarios");
 
@@ -168,6 +181,9 @@ public class PostActivity extends AppCompatActivity {
     }
 
     public void initializeDatabase() {
+        pDatabaseUsers = FirebaseDatabase.getInstance().getReference().child("users").child(firebaseUser.getUid());
+        pDatabaseUsers.addValueEventListener(userEvent());
+
         pDatabasePosts = FirebaseDatabase.getInstance().getReference().child("posts").child(postId);
         pDatabasePosts.addValueEventListener(postListEvent());
 
@@ -175,6 +191,19 @@ public class PostActivity extends AppCompatActivity {
 
         pDatabaseComments = FirebaseDatabase.getInstance().getReference().child("comments").child(postId);
         pDatabaseComments.addValueEventListener(commentListEvent());
+    }
+
+    public ValueEventListener userEvent() {
+        return new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                // Get user info
+                user = snapshot.getValue(User.class);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {}
+        };
     }
 
     public ValueEventListener postListEvent() {
@@ -297,5 +326,26 @@ public class PostActivity extends AppCompatActivity {
 
             }
         });
+    }
+
+    public void buttonAddCommentEvent() {
+        if(!editTextComment.getText().toString().equals("")) {
+            String dateFormat = "dd/MM/yyyy HH:mm:ss";
+            String commentDate = new SimpleDateFormat(dateFormat).format(Calendar.getInstance().getTime());
+
+            Comment comment = new Comment();
+            comment.setCommentId(UUID.randomUUID().toString());
+            comment.setCommentDate(commentDate);
+            comment.setCommentText(editTextComment.getText().toString());
+            comment.setUserId(firebaseUser.getUid());
+            comment.setUserName(user.getUserName());
+            comment.setUserImageProfile(user.getUserImageProfile());
+
+            pDatabaseComments.child(comment.getCommentId()).setValue(comment);
+            pDatabasePosts.child("postComments").setValue(post.getPostComments() + 1);
+        }
+        else {
+            Toast.makeText(PostActivity.this, "No es posible agregar un comentario vacío", Toast.LENGTH_SHORT).show();
+        }
     }
 }

@@ -41,8 +41,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
     private LayoutInflater pInflater;
     private Context context;
 
-    private DatabaseReference pDatabaseLikes;
-    private DatabaseReference pDatabasePosts;
+    private DatabaseReference pDatabaseLikes, pDatabaseComments, pDatabasePosts;
 
     FirebaseUser firebaseUser;
 
@@ -56,6 +55,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
         firebaseUser = FirebaseAuth.getInstance().getCurrentUser();
         pDatabaseLikes = FirebaseDatabase.getInstance().getReference().child("likes");
         pDatabasePosts = FirebaseDatabase.getInstance().getReference().child("posts");
+        pDatabaseComments = FirebaseDatabase.getInstance().getReference().child("comments");
     }
 
     @Override
@@ -63,7 +63,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
 
     @Override
     public PostAdapter.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View view = pInflater.inflate(R.layout.layout_post, null);
+        View view = pInflater.inflate(R.layout.layout_post, parent, false);
 
         return new PostAdapter.ViewHolder(view);
     }
@@ -183,6 +183,7 @@ public class PostAdapter extends RecyclerView.Adapter<PostAdapter.ViewHolder> {
                 try {
                     pDatabasePosts.child(item.getPostId()).removeValue();
                     pDatabaseLikes.child(item.getPostId()).removeValue();
+                    pDatabaseComments.child(item.getPostId()).removeValue();
 
                     Toast.makeText(context, "La publicación ha sido eliminada correctamente", Toast.LENGTH_LONG).show();
 

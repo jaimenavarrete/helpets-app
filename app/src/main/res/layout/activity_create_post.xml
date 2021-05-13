@@ -83,6 +83,7 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox.ExposedDropdownMenu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textColor="@color/black"
 
                 app:startIconDrawable="@drawable/user_icon"
                 app:startIconTint="@color/primary_color">
@@ -92,7 +93,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
                     android:inputType="none"
-                    android:hint="Categoria"
+                    android:textColor="@color/black"
+                    android:hint="Categoría"
                     />
 
             </com.google.android.material.textfield.TextInputLayout>

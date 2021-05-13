@@ -16,6 +16,7 @@
     <string name="font">roboto</string>
 
     <!-- Log In Strings -->
+    <string name="comment">Agregar un comentario </string>
     <string name="user">Usuario </string>
     <string name="password">Contraseña </string>
     <string name="login">Iniciar Sesion</string>
